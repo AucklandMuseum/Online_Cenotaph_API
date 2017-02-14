@@ -2,7 +2,7 @@ Auckland Museum API.
 ================
 http://api.aucklandmuseum.com/
 
-
+Read the full documentation [here](https://github.com/AucklandMuseum/API/wiki)
 
 
 Natural Sciences
