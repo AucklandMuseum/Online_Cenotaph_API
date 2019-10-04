@@ -1,0 +1,105 @@
+PREFIX db: <http://dbpedia.org/ontology/>
+PREFIX ecrm:<http://erlangen-crm.org/current/> 
+PREFIX am:<http://collections.aucklandmuseum.com/ontology/core/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+
+SELECT * where
+ {
+ 
+  # Person Basic data
+  ?person am:givenName/foaf:familyName ?familyname.
+  ?person am:givenName/foaf:givenName ?firstname.
+  ?person am:war/rdf:value "World War II, 1939-1945".
+  ?person am:serviceNumber/rdf:value ?serviceNumber.
+  ?person am:ethnicity ?ethnicity.
+  ?person am:ethnicityNotes ?ethnicityNotes.
+  optional {?person am:force ?force.}
+  ?person am:hapu/rdf:value ?hapu.
+  ?person am:ingoa  ?ingoa. #gives duplicates
+  ?person am:iwi/rdf:value ?iwi.
+  ?person am:religion ?religion.
+  ?person am:rohe ?rohe.
+  ?person am:waka ?waka.
+    
+  #Birth
+  optional {?person am:birth/am:placeOfBirth/am:displayValue ?placeOfBirth.}
+  optional {?person am:birth/am:dateOfBirth ?dateOfBirth.}
+  optional {?person am:birth/am:dateOfBirthSource ?dateOfBirthSource}
+  optional {?person am:birthNotes ?birthNotes.}
+  
+  #Relationship Status
+  ?person am:personalRelationship/am:relationshipDate ?relationshipDate.
+  ?person am:personalRelationship/am:relationshipStatus ?relationshipStatus.
+  
+  #Before Enlistment
+  ?person am:beforeEnlistment/am:addressBeforeEnlistment ?addressBeforeEnlistment.
+  ?person am:beforeEnlistment/am:dateForAddressBeforeEnlistment ?dateForAddressBeforeEnlistment.
+  ?person am:beforeEnlistment/am:placeBeforeEnlistment/am:displayValue ?placeBeforeEnlistment.
+    
+  #Enlistment 
+  ?person am:enlistment/am:ageAtEnlistment ?ageAtEnlistment.
+  ?person am:enlistment/am:conflict ?enlistmentConflict.
+  ?person am:enlistment/am:dateOfEnlistment ?dateOfEnlistment.
+  ?person am:enlistment/am:jobAtEnlistment ?jobAtEnlistment.
+  ?person am:enlistment/am:militaryDistrict ?militaryDistrict.
+  ?person am:enlistment/am:militaryUnitOnEnlistment ?militaryUnitOnEnlistment.
+
+  #Embarkation
+  ?person am:embarkation/am:conflict ?conflict.
+  ?person am:embarkation/am:embarkationBody ?embarkationBody.
+  ?person am:embarkation/am:embarkationDate ?embarkationDate.
+  ?person am:embarkation/am:embarkationEvent ?embarkationEvent.
+  ?person am:embarkation/am:embarkationVessel ?embarkationVessel.
+  ?person am:embarkation/am:placeBeforeEmbarkation ?placeBeforeEmbarkation.
+  ?person am:embarkation/am:rankOnEmbarkation ?rankOnEmbarkation.
+  ?person am:embarkation/am:ageAtEmbarkation ?ageAtEmbarkation.
+  ?person am:nextOfKinAtEmbarkation/am:conflict ?conflict.
+  ?person am:nextOfKinAtEmbarkation/am:nextOfKin ?nextOfKin.
+  ?person am:nextOfKinAtEmbarkation/am:nextOfKinLocation ?nextOfKinLocation.
+  
+  #Medical Info
+  ?person am:medicalInformation/am:medical ?medical.
+  ?person am:medicalInformation/am:medicalDate ?medicalDate.
+  ?person am:medicalInformation/am:notes ?notes.
+  
+  #Discharge
+  ?person am:discharge/am:dischargeDate ?dischargeDate.
+  ?person am:discharge/am:rankLastHeld ?rankLastHeld.
+  ?person am:discharge/am:unitLast ?unitLast.
+  ?person am:discharge/am:conflict ?conflict.
+  ?person am:discharge/am:causeOfDischarge ?causeOfDischarge.
+  
+  #Post War Occupation
+  ?person am:postWarOccupation/am:dateOfEmployment ?dateOfEmployment.
+  ?person am:postWarOccupation/am:occupation ?occupation.
+
+  #Capture
+  ?person am:capture/am:captureDuration ?captureDuration.
+  ?person am:capture/am:captureDuration_earliest ?captureDuration_earliest.
+  ?person  am:capture/am:captureDuration_latest ?captureDuration_latest.
+  ?person am:capture/am:captureEvent ?captureEvent.
+  ?person am:capture/am:conflict ?CaptureConflict.
+  ?person am:powDaysInterned ?powDaysInterned.
+  ?person am:capture/am:capturePlace ?capturePlace.
+  ?person am:capture/am:captureNotes ?captureNotes.
+    
+  #Death
+  ?person am:death/am:ageAtDeath ?ageAtDeath.
+  ?person am:death/am:dateOfDeath ?dateOfDeath.
+  ?person am:death/am:placeOfDeath ?placeOfDeath.
+  ?person am:death/am:rankLastHeld ?rankLastHeld.
+  ?person am:death/am:unitLast ?unitLast.
+  ?person am:militaryperson/am:obituary ?obituary.
+  ?person am:memorialNotes ?memorialNotes.
+  
+  #cemetery
+  ?person am:cemetery/am:graveReference ?graveReference.
+  ?person am:cemetery/am:restingPlace ?restingPlace. 
+  ?person am:memorialNotes ?memorialNotes.
+  ?person am:memorialReference ?memorialReference.
+  
+}
+limit 1000
+
+
