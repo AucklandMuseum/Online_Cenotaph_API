@@ -1,0 +1,3196 @@
+{
+	"prefixes": {
+		"am": "http://rdf.aucklandmuseum.com/",
+		"am-geopos": "http://rdf.aucklandmuseum.com/ontology/geopos#",
+		"bibo": "http://purl.org/ontology/bibo/",
+		"blt": "http://www.bl.uk/schemas/bibliographic/blterms#",
+		"dbp-ont": "http://dbpedia.org/ontology/",
+		"dc": "http://purl.org/dc/elements/1.1/",
+		"dcterms": "http://purl.org/dc/terms/",
+		"dwc": "http://rs.tdwg.org/dwc/terms/",
+		"ecrm": "http://erlangen-crm.org/current#",
+		"foaf": "http://xmlns.com/foaf/0.1/",
+		"geo-ont": "http://www.geonames.org/ontology#",
+		"geo-pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+		"rda-carrier": "http://rdvocab.info/termList/RDACarrierType/",
+		"rda-content": "http://rdvocab.info/termList/RDAContentType/",
+		"rda-media": "http://rdvocab.info/termList/RDAMediaType/",
+		"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+		"tc": "http://rs.tdwg.org/ontology/voc/TaxonConcept#",
+		"tn": "http://rs.tdwg.org/ontology/voc/TaxonName#",
+		"trank": "http://rs.tdwg.org/ontology/voc/TaxonRank#",
+		"tsp": "http://rs.tdwg.org/ontology/voc/Specimen#"
+	},
+	"transforms": {
+		"asDate": {
+			"type": "date"
+		},
+		"extractGenus": {
+			"impl": "List list = arg.tokenize(\" \");if(list.size() > 0) list.get(0);",
+			"type": "script"
+		},
+		"extractInfraspecificEpithet": {
+			"impl": "List list = arg.tokenize(\" \");if(list.size() > 2) list.get(2);",
+			"type": "script"
+		},
+		"extractParentClassificationID": {
+			"impl": "arg.tokenize(\"\\n\").get(arg.tokenize(\"\\n\").indexOf(\"-------\") + 1).tokenize(\" \").last().replaceAll(\"\\\\(\", \"\").replaceAll(\"\\\\)\", \"\")",
+			"type": "script"
+		},
+		"extractSpecificEpithet": {
+			"impl": "List list = arg.tokenize(\" \");if(list.size() > 1) list.get(1);",
+			"type": "script"
+		},
+		"filterDateTypeField": {
+			"impl": "arg?.tokenize(\"{\")?.getAt(0)?.trim()",
+			"type": "script"
+		},
+		"getAgeFromDateAgeField": {
+			"impl": "\\{[^\\d]*(\\d+).*\\}",
+			"type": "regex"
+		},
+		"isSpecies": {
+			"impl": "arg.equalsIgnoreCase(\"species\")",
+			"type": "script"
+		},
+		"isTaxonomicClassification": {
+			"impl": "[\"Class\",\"cv.\",\"Division\",\"f.\",\"fa.\",\"Family\",\"forma\",\"forma?\",\"gen.syn.\",\"Genus\",\"hybrid\",\"Infraclass\",\"Infraorder\",\"Kingdom\",\"Linnaean System\",\"Microorder\",\"No Level\",\"Order\",\"Phylum\",\"Section\",\"sp\",\"species\",\"Species\",\"species of gen. syn.\",\"sp.syn.\",\"Subclass\",\"Subdivision\",\"Subfamily\",\"Subgenus\",\"Suborder\",\"Subphylum\",\"subsp.\",\"Superclass\",\"Superfamily\",\"Superorder\",\"var.\",\"x\"].contains(arg)",
+			"type": "script"
+		},
+		"now": {
+			"impl": "Calendar cal = Calendar.getInstance(); cal.setTime(new Date()); javax.xml.bind.DatatypeConverter.printDateTime(cal);",
+			"type": "script"
+		},
+		"sanitiseURL": {
+			"impl": "arg.replaceAll(\"[\\\\s/&]+\", \"_\")",
+			"type": "script"
+		}
+	},
+	"types": {
+		"am:AVMetadata": {
+			"predicates": {
+				"exif_DateTime": {
+					"predicate": "am:exif_DateTime",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:AlternativeName": {
+			"predicates": {
+				"alternativeName": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"nameDateEarliest": {
+					"predicate": "am:nameDate_earliest",
+					"type": "DATE"
+				},
+				"nameDateLatest": {
+					"predicate": "am:nameDate_latest",
+					"type": "DATE"
+				},
+				"title": {
+					"predicate": "foaf:title",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Award": {
+			"predicates": {
+				"award": {
+					"predicate": "am:award",
+					"type": "STRING"
+				},
+				"awardDate": {
+					"predicate": "am:awardDate",
+					"type": "STRING"
+				},
+				"awardDateSource": {
+					"predicate": "am:awardDateSource",
+					"type": "STRING"
+				},
+				"awardNotes": {
+					"predicate": "am:awardNotes",
+					"type": "STRING"
+				},
+				"awardSource": {
+					"predicate": "am:awardSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:BeforeEnlistment": {
+			"predicates": {
+				"addressBeforeEnlistment": {
+					"predicate": "am:addressBeforeEnlistment",
+					"type": "STRING"
+				},
+				"addressDateEarliest": {
+					"predicate": "am:dateForAddressBeforeEnlistment_earliest",
+					"type": "DATE"
+				},
+				"addressDateLatest": {
+					"predicate": "am:dateForAddressBeforeEnlistment_latest",
+					"type": "DATE"
+				},
+				"ageBeforeEnlistment": {
+					"predicate": "am:ageBeforeEnlistment",
+					"type": "INT"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateForAddressBeforeEnlistment": {
+					"predicate": "am:dateForAddressBeforeEnlistment",
+					"type": "STRING"
+				},
+				"placeBeforeEnlistment": {
+					"predicate": "am:placeBeforeEnlistment",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Birth": {
+			"predicates": {
+				"birthNotes": {
+					"predicate": "am:birthNotes",
+					"type": "STRING"
+				},
+				"dateOfBirth": {
+					"predicate": "am:dateOfBirth",
+					"type": "STRING"
+				},
+				"dateOfBirthEarliest": {
+					"predicate": "am:dateOfBirth_earliest",
+					"type": "DATE"
+				},
+				"dateOfBirthLatest": {
+					"predicate": "am:dateOfBirth_latest",
+					"type": "DATE"
+				},
+				"dateSource": {
+					"predicate": "am:dateOfBirthSource",
+					"type": "STRING"
+				},
+				"originalPlaceData": {
+					"predicate": "am:originalPlaceData",
+					"type": "STRING"
+				},
+				"placeOfBirth": {
+					"predicate": "am:placeOfBirth",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:placeOfBirthSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Campaign": {
+			"predicates": {
+				"campaignDateEarliest": {
+					"predicate": "am:campaignDate_earliest",
+					"type": "DATE"
+				},
+				"campaignDateLatest": {
+					"predicate": "am:campaignDate_latest",
+					"type": "DATE"
+				},
+				"campaignDuration": {
+					"predicate": "am:campaignDate",
+					"type": "STRING"
+				},
+				"campaignEvent": {
+					"predicate": "am:campaignEvent",
+					"type": "am:Event"
+				},
+				"campaignNotes": {
+					"predicate": "am:campaignNotes",
+					"type": "STRING"
+				},
+				"campaignPlace": {
+					"predicate": "am:campaignPlace",
+					"type": "STRING"
+				},
+				"dateSource": {
+					"predicate": "am:campaignDateSource",
+					"type": "STRING"
+				},
+				"eventSource": {
+					"predicate": "am:campaignEventSource",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:campaignPlaceSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Capture": {
+			"predicates": {
+				"captureDateEarliest": {
+					"predicate": "am:captureDuration_earliest",
+					"type": "DATE"
+				},
+				"captureDateLatest": {
+					"predicate": "am:captureDuration_latest",
+					"type": "DATE"
+				},
+				"captureDuration": {
+					"predicate": "am:captureDuration",
+					"type": "STRING"
+				},
+				"captureEvent": {
+					"predicate": "am:captureEvent",
+					"type": "am:Event"
+				},
+				"captureNotes": {
+					"predicate": "am:captureNotes",
+					"type": "STRING"
+				},
+				"capturePlace": {
+					"predicate": "am:capturePlace",
+					"type": "STRING"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateSource": {
+					"predicate": "am:captureDurationSource",
+					"type": "STRING"
+				},
+				"eventSource": {
+					"predicate": "am:captureEventSource",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:capturePlaceSource",
+					"type": "STRING"
+				},
+				"powDaysInterned": {
+					"predicate": "am:powDaysInterned",
+					"type": "INT"
+				}
+			}
+		},
+		"am:CareerType": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateOfEmployment": {
+					"predicate": "am:dateOfEmployment",
+					"type": "STRING"
+				},
+				"dateOfEmploymentEarliest": {
+					"predicate": "am:dateOfEmployment_earliest",
+					"type": "DATE"
+				},
+				"dateOfEmploymentLatest": {
+					"predicate": "am:dateOfEmployment_latest",
+					"type": "DATE"
+				},
+				"dateSource": {
+					"predicate": "am:dateOfEmploymentSource",
+					"type": "STRING"
+				},
+				"notes": {
+					"predicate": "am:notes",
+					"type": "STRING"
+				},
+				"placeOfEmployment": {
+					"predicate": "am:placeOfEmployment",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:placeOfEmploymentSource",
+					"type": "STRING"
+				},
+				"role": {
+					"predicate": "am:occupation",
+					"type": "am:Occupation"
+				},
+				"roleSource": {
+					"predicate": "am:occupationSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Cemetery": {
+			"predicates": {
+				"cemeteryPlace": {
+					"predicate": "am:cemeteryPlace",
+					"type": "STRING"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"graveReference": {
+					"predicate": "am:graveReference",
+					"type": "STRING"
+				},
+				"restingPlace": {
+					"predicate": "am:restingPlace",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Classification": {
+			"predicates": {
+				"childOf": {
+					"predicate": "am:isChildOf",
+					"type": "am:Classification"
+				},
+				"commonName": {
+					"predicate": "am:commonName",
+					"type": "STRING"
+				},
+				"documentation": {
+					"predicate": "ecrm:P70_documents",
+					"type": "ecrm:E31_Document"
+				},
+				"maoriName": {
+					"predicate": "am:maoriName",
+					"type": "STRING"
+				},
+				"taxonConcept": {
+					"predicate": "am:taxonomic_classification",
+					"type": "tc:TaxonConcept"
+				},
+				"value": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"x-classification": {
+					"predicate": "am:classification_details",
+					"type": "am:ClassificationDetail"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:ClassificationDetail": {
+			"predicates": {
+				"id": {
+					"predicate": "am:classification_id",
+					"type": "URI"
+				},
+				"rank": {
+					"predicate": "am:classification_rank",
+					"type": "STRING"
+				},
+				"value": {
+					"predicate": "am:classification_value",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Corporation": {
+			"predicates": {
+				"name": {
+					"predicate": "foaf:name",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:Death": {
+			"predicates": {
+				"ageAtDeath": {
+					"predicate": "am:ageAtDeath",
+					"type": "INT"
+				},
+				"dateOfDeath": {
+					"predicate": "am:dateOfDeath",
+					"type": "STRING"
+				},
+				"dateOfDeathEarliest": {
+					"predicate": "am:dateOfDeath_earliest",
+					"type": "DATE"
+				},
+				"dateOfDeathLatest": {
+					"predicate": "am:dateOfDeath_latest",
+					"type": "DATE"
+				},
+				"dateSource": {
+					"predicate": "am:dateOfDeathSource",
+					"type": "STRING"
+				},
+				"obituary": {
+					"predicate": "am:obituary",
+					"type": "STRING"
+				},
+				"placeOfDeath": {
+					"predicate": "am:placeOfDeath",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:placeOfDeathSource",
+					"type": "STRING"
+				},
+				"rankLastHeld": {
+					"predicate": "am:rankLastHeld",
+					"type": "am:MilitaryRank"
+				},
+				"rankSource": {
+					"predicate": "am:rankLastHeldSource",
+					"type": "STRING"
+				},
+				"unitLast": {
+					"predicate": "am:unitLast",
+					"type": "am:MilitaryUnit"
+				},
+				"unitSource": {
+					"predicate": "am:unitLastSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Discharge": {
+			"predicates": {
+				"ageAtDischarge": {
+					"predicate": "am:ageAtDischarge",
+					"type": "INT"
+				},
+				"causeOfDischarge": {
+					"predicate": "am:causeOfDischarge",
+					"type": "STRING"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateSource": {
+					"predicate": "am:dischargeDateSource",
+					"type": "STRING"
+				},
+				"dischargeDate": {
+					"predicate": "am:dischargeDate",
+					"type": "STRING"
+				},
+				"dischargeDateEarliest": {
+					"predicate": "am:dischargeDate_earliest",
+					"type": "DATE"
+				},
+				"dischargeDateLatest": {
+					"predicate": "am:dischargeDate_latest",
+					"type": "DATE"
+				},
+				"rankLastHeld": {
+					"predicate": "am:rankLastHeld",
+					"type": "am:MilitaryRank"
+				},
+				"rankSource": {
+					"predicate": "am:rankLastHeldSource",
+					"type": "STRING"
+				},
+				"unitLast": {
+					"predicate": "am:unitLast",
+					"type": "am:MilitaryUnit"
+				},
+				"unitSource": {
+					"predicate": "am:unitLastSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Document": {
+			"predicates": {
+				"document": {
+					"predicate": "ecrm:P70_documents",
+					"type": "ecrm:E31_Document"
+				},
+				"documentNotes": {
+					"predicate": "am:documentNotes",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Embarkation": {
+			"predicates": {
+				"ageAtEmbarkation": {
+					"predicate": "am:ageAtEmbarkation",
+					"type": "INT"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateSource": {
+					"predicate": "am:embarkationDateSource",
+					"type": "STRING"
+				},
+				"embarkationBody": {
+					"predicate": "am:embarkationBody",
+					"type": "am:MilitaryUnit"
+				},
+				"embarkationDate": {
+					"predicate": "am:embarkationDate",
+					"type": "STRING"
+				},
+				"embarkationDateEarliest": {
+					"predicate": "am:embarkationDate_earliest",
+					"type": "DATE"
+				},
+				"embarkationDateLatest": {
+					"predicate": "am:embarkationDate_latest",
+					"type": "DATE"
+				},
+				"embarkationEvent": {
+					"predicate": "am:embarkationEvent",
+					"type": "am:Event"
+				},
+				"embarkationNotes": {
+					"predicate": "am:embarkationNotes",
+					"type": "STRING"
+				},
+				"embarkationUnit": {
+					"predicate": "am:embarkationUnit",
+					"type": "am:MilitaryUnit"
+				},
+				"embarkationVessel": {
+					"predicate": "am:embarkationVessel",
+					"type": "am:Vessel"
+				},
+				"eventSource": {
+					"predicate": "am:embarkationEventSource",
+					"type": "STRING"
+				},
+				"placeBeforeEmbarkation": {
+					"predicate": "am:placeBeforeEmbarkation",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:placeBeforeEmbarkationSource",
+					"type": "STRING"
+				},
+				"rankOnEmbarkation": {
+					"predicate": "am:rankOnEmbarkation",
+					"type": "am:MilitaryRank"
+				},
+				"rankSource": {
+					"predicate": "am:rankOnEmbarkationSource",
+					"type": "STRING"
+				},
+				"unitSource": {
+					"predicate": "am:embarkationUnitSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Employment": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateOfEmployment": {
+					"predicate": "am:dateOfEmployment",
+					"type": "STRING"
+				},
+				"dateOfEmploymentEarliest": {
+					"predicate": "am:dateOfEmployment_earliest",
+					"type": "DATE"
+				},
+				"dateOfEmploymentLatest": {
+					"predicate": "am:dateOfEmployment_latest",
+					"type": "DATE"
+				},
+				"dateSource": {
+					"predicate": "am:dateOfEmploymentSource",
+					"type": "STRING"
+				},
+				"employmentNotes": {
+					"predicate": "am:employmentNotes",
+					"type": "STRING"
+				},
+				"occupation": {
+					"predicate": "am:occupation",
+					"type": "am:Occupation"
+				},
+				"placeOfEmployment": {
+					"predicate": "am:placeOfEmployment",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:placeOfEmploymentSource",
+					"type": "STRING"
+				},
+				"roleSource": {
+					"predicate": "am:occupationSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Enlistment": {
+			"predicates": {
+				"ageAtEnlistment": {
+					"predicate": "am:ageAtEnlistment",
+					"type": "INT"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateOfEnlistment": {
+					"predicate": "am:dateOfEnlistment",
+					"type": "STRING"
+				},
+				"dateOfEnlistmentEarliest": {
+					"predicate": "am:dateOfEnlistment_earliest",
+					"type": "DATE"
+				},
+				"dateOfEnlistmentLatest": {
+					"predicate": "am:dateOfEnlistment_latest",
+					"type": "DATE"
+				},
+				"dateSource": {
+					"predicate": "am:dateOfEnlistmentSource",
+					"type": "STRING"
+				},
+				"jobAtEnlistment": {
+					"predicate": "am:jobAtEnlistment",
+					"type": "am:Occupation"
+				},
+				"jobSource": {
+					"predicate": "am:jobAtEnlistmentSource",
+					"type": "STRING"
+				},
+				"militaryDistrict": {
+					"predicate": "am:militaryDistrict",
+					"type": "STRING"
+				},
+				"militaryUnit": {
+					"predicate": "am:militaryUnitOnEnlistment",
+					"type": "am:MilitaryUnit"
+				},
+				"placeSource": {
+					"predicate": "am:militaryDistrictSource",
+					"type": "STRING"
+				},
+				"source": {
+					"predicate": "am:notes",
+					"type": "STRING"
+				},
+				"unitSource": {
+					"predicate": "am:militaryUnitOnEnlistmentSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Event": {
+			"predicates": {
+				"associatedEvent": {
+					"predicate": "am:associatedEvent",
+					"type": "am:Event"
+				},
+				"date": {
+					"predicate": "am:eventDate",
+					"type": "STRING"
+				},
+				"dateFrom": {
+					"predicate": "am:dateFrom",
+					"type": "STRING"
+				},
+				"dateTo": {
+					"predicate": "am:dateTo",
+					"type": "STRING"
+				},
+				"description": {
+					"predicate": "am:eventDescription",
+					"type": "STRING"
+				},
+				"duration": {
+					"predicate": "am:eventDuration",
+					"type": "STRING"
+				},
+				"embarkationBody": {
+					"predicate": "am:embarkationBody",
+					"type": "am:MilitaryUnit"
+				},
+				"embarked": {
+					"predicate": "am:embarked",
+					"type": "STRING"
+				},
+				"grossTonnage": {
+					"predicate": "am:grossTonnage",
+					"type": "STRING"
+				},
+				"name": {
+					"predicate": "am:eventName",
+					"type": "STRING"
+				},
+				"numberOfHorses": {
+					"predicate": "am:numberOfHorses",
+					"type": "STRING"
+				},
+				"numberOfMen": {
+					"predicate": "am:numberOfMen",
+					"type": "STRING"
+				},
+				"numberOfOfficers": {
+					"predicate": "am:numberOfOfficers",
+					"type": "STRING"
+				},
+				"period": {
+					"predicate": "am:eventPeriod",
+					"type": "STRING"
+				},
+				"place": {
+					"predicate": "am:eventPlace",
+					"type": "STRING"
+				},
+				"placeFrom": {
+					"predicate": "am:placeFrom",
+					"type": "STRING"
+				},
+				"placeNotes": {
+					"predicate": "am:eventPlaceNotes",
+					"type": "STRING"
+				},
+				"placeTo": {
+					"predicate": "am:placeTo",
+					"type": "STRING"
+				},
+				"portOfCall": {
+					"predicate": "am:portOfCall",
+					"type": "STRING"
+				},
+				"transportShip": {
+					"predicate": "am:transportShip",
+					"type": "am:Vessel"
+				},
+				"type": {
+					"predicate": "am:eventType",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:GivenName": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"firstName": {
+					"predicate": "foaf:firstName",
+					"type": "STRING"
+				},
+				"initials": {
+					"predicate": "foaf:initials",
+					"type": "STRING"
+				},
+				"lastName": {
+					"predicate": "foaf:familyName",
+					"type": "STRING"
+				},
+				"nameDateEarliest": {
+					"predicate": "am:nameDate_earliest",
+					"type": "DATE"
+				},
+				"nameDateLatest": {
+					"predicate": "am:nameDate_latest",
+					"type": "DATE"
+				},
+				"title": {
+					"predicate": "foaf:title",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Hapu": {
+			"context": "am:vernon/hapu",
+			"predicates": {
+				"value": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:hapu/%s",
+				"type": "format"
+			}
+		},
+		"am:Image": {
+			"predicates": {
+				"imageType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"imageValue": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Ingoa": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"ingoa": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"nameDateEarliest": {
+					"predicate": "am:nameDate_earliest",
+					"type": "DATE"
+				},
+				"nameDateLatest": {
+					"predicate": "am:nameDate_latest",
+					"type": "DATE"
+				},
+				"title": {
+					"predicate": "foaf:title",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Iwi": {
+			"context": "am:vernon/iwi",
+			"predicates": {
+				"value": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:iwi/%s",
+				"type": "format"
+			}
+		},
+		"am:Liberation": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"dateSource": {
+					"predicate": "am:liberationDateSource",
+					"type": "STRING"
+				},
+				"liberationDate": {
+					"predicate": "am:liberationDate",
+					"type": "STRING"
+				},
+				"liberationDateEarliest": {
+					"predicate": "am:liberationDate_earliest",
+					"type": "DATE"
+				},
+				"liberationDateLatest": {
+					"predicate": "am:liberationDate_latest",
+					"type": "DATE"
+				},
+				"liberationNotes": {
+					"predicate": "am:liberationNotes",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Material": {
+			"predicates": {
+				"childOf": {
+					"predicate": "am:isChildOf",
+					"type": "am:Material"
+				},
+				"name": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"x-material": {
+					"predicate": "am:material_details",
+					"type": "am:MaterialDetail"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:MaterialDetail": {
+			"predicates": {
+				"id": {
+					"predicate": "am:material_id",
+					"type": "URI"
+				},
+				"rank": {
+					"predicate": "am:material_rank",
+					"type": "STRING"
+				},
+				"value": {
+					"predicate": "am:material_value",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:MedicalInformation": {
+			"predicates": {
+				"date": {
+					"predicate": "am:medicalDate",
+					"type": "STRING"
+				},
+				"details": {
+					"predicate": "am:medical",
+					"type": "STRING"
+				},
+				"medicalDateEarliest": {
+					"predicate": "am:medicalDate_earliest",
+					"type": "DATE"
+				},
+				"medicalDateLatest": {
+					"predicate": "am:medicalDate_latest",
+					"type": "DATE"
+				},
+				"medicalDateSource": {
+					"predicate": "am:medicalDateSource",
+					"type": "STRING"
+				},
+				"medicalSource": {
+					"predicate": "am:medicalSource",
+					"type": "STRING"
+				},
+				"notes": {
+					"predicate": "am:medicalNotes",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Memorial": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"memorialNotes": {
+					"predicate": "am:memorialNotes",
+					"type": "STRING"
+				},
+				"memorialPlace": {
+					"predicate": "am:memorialPlace",
+					"type": "STRING"
+				},
+				"memorialReference": {
+					"predicate": "am:memorialReference",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:MilitaryPerson": {
+			"predicates": {
+				"alternativeName": {
+					"predicate": "am:alternativeName",
+					"type": "am:AlternativeName"
+				},
+				"associatedEvent": {
+					"predicate": "am:event_reference",
+					"type": "am:Event"
+				},
+				"av-ref": {
+					"predicate": "ecrm:P138_has_representation",
+					"type": "ecrm:E38_Image"
+				},
+				"award": {
+					"predicate": "dbp-ont:award",
+					"type": "am:Award"
+				},
+				"beforeEnlistment": {
+					"predicate": "am:beforeEnlistment",
+					"type": "am:BeforeEnlistment"
+				},
+				"born": {
+					"predicate": "am:birth",
+					"type": "am:Birth"
+				},
+				"campaign": {
+					"predicate": "am:campaign",
+					"type": "am:Campaign"
+				},
+				"capture": {
+					"predicate": "am:capture",
+					"type": "am:Capture"
+				},
+				"careerType": {
+					"predicate": "am:careerType",
+					"type": "am:CareerType"
+				},
+				"causeOfDeath": {
+					"predicate": "am:causeOfDeath",
+					"type": "STRING"
+				},
+				"cemetery": {
+					"predicate": "am:cemetery",
+					"type": "am:Cemetery"
+				},
+				"died": {
+					"predicate": "am:death",
+					"type": "am:Death"
+				},
+				"discharge": {
+					"predicate": "am:discharge",
+					"type": "am:Discharge"
+				},
+				"displayNotes": {
+					"predicate": "am:displayNotes",
+					"type": "STRING"
+				},
+				"document": {
+					"predicate": "am:document",
+					"type": "am:Document"
+				},
+				"embarkation": {
+					"predicate": "am:embarkation",
+					"type": "am:Embarkation"
+				},
+				"enlistment": {
+					"predicate": "am:enlistment",
+					"type": "am:Enlistment"
+				},
+				"ethnicity": {
+					"predicate": "am:ethnicity",
+					"type": "STRING"
+				},
+				"ethnicityCommunity": {
+					"predicate": "am:ethnicityCommunity",
+					"type": "STRING"
+				},
+				"ethnicityLanguage": {
+					"predicate": "am:ethnicityLanguage",
+					"type": "STRING"
+				},
+				"ethnicityNotes": {
+					"predicate": "am:ethnicityNotes",
+					"type": "STRING"
+				},
+				"ethnicitySource": {
+					"predicate": "am:ethnicitySource",
+					"type": "STRING"
+				},
+				"externalFileCategory": {
+					"predicate": "am:externalFileCategory",
+					"type": "STRING"
+				},
+				"externalFileName": {
+					"predicate": "am:externalFileName",
+					"type": "STRING"
+				},
+				"externalFileNotes": {
+					"predicate": "am:externalFileNotes",
+					"type": "STRING"
+				},
+				"familyName": {
+					"predicate": "am:familyName",
+					"type": "am:FamilyName"
+				},
+				"firstRank": {
+					"predicate": "am:firstRank",
+					"type": "am:MilitaryRank"
+				},
+				"force": {
+					"predicate": "am:force",
+					"type": "STRING"
+				},
+				"gender": {
+					"predicate": "dbp-ont:sex",
+					"type": "STRING"
+				},
+				"generalFlag": {
+					"predicate": "am:generalFlag",
+					"type": "STRING"
+				},
+				"generalFlagNotes": {
+					"predicate": "am:generalFlagNotes",
+					"type": "STRING"
+				},
+				"generalNotes": {
+					"predicate": "am:generalNotes",
+					"type": "STRING"
+				},
+				"givenName": {
+					"predicate": "am:givenName",
+					"type": "am:GivenName"
+				},
+				"hapu": {
+					"predicate": "am:hapu",
+					"type": "am:Hapu"
+				},
+				"ingoa": {
+					"predicate": "am:ingoa",
+					"type": "am:Ingoa"
+				},
+				"interWarDischarge": {
+					"predicate": "am:interWarDischarge",
+					"type": "am:Discharge"
+				},
+				"interWarEmbarkation": {
+					"predicate": "am:interWarEmbarkation",
+					"type": "am:Embarkation"
+				},
+				"interWarEnlistment": {
+					"predicate": "am:interWarEnlistment",
+					"type": "am:Enlistment"
+				},
+				"interWarJob": {
+					"predicate": "am:interWarJob",
+					"type": "am:Employment"
+				},
+				"iwi": {
+					"predicate": "am:iwi",
+					"type": "am:Iwi"
+				},
+				"job": {
+					"predicate": "am:job",
+					"type": "am:Employment"
+				},
+				"keywords": {
+					"predicate": "am:keywords",
+					"type": "STRING"
+				},
+				"liberation": {
+					"predicate": "am:liberation",
+					"type": "am:Liberation"
+				},
+				"liberationRepatriationEscapeRelease": {
+					"predicate": "am:liberationRepatriationEscapeRelease",
+					"type": "am:Liberation"
+				},
+				"medicalInformation": {
+					"predicate": "am:medicalInformation",
+					"type": "am:MedicalInformation"
+				},
+				"memorial": {
+					"predicate": "am:memorial",
+					"type": "am:Memorial"
+				},
+				"militaryService": {
+					"predicate": "am:militaryService",
+					"type": "am:MilitaryService"
+				},
+				"militaryTraining": {
+					"predicate": "am:militaryTraining",
+					"type": "am:MilitaryTraining"
+				},
+				"museumTag": {
+					"predicate": "am:museum_tag",
+					"type": "STRING"
+				},
+				"nextOfKinAtEmbarkation": {
+					"predicate": "am:nextOfKinAtEmbarkation",
+					"type": "am:NextOfKinAtEmbarkation"
+				},
+				"nickName": {
+					"predicate": "am:nickName",
+					"type": "am:NickName"
+				},
+				"obituary": {
+					"predicate": "am:obituary",
+					"type": "STRING"
+				},
+				"personRecordType": {
+					"predicate": "am:personRecordType",
+					"type": "STRING"
+				},
+				"personalRelationship": {
+					"predicate": "am:personalRelationship",
+					"type": "am:PersonalRelationship"
+				},
+				"postWarOccupation": {
+					"predicate": "am:postWarOccupation",
+					"type": "am:Employment"
+				},
+				"powSerialNumber": {
+					"predicate": "am:powSerialNumber",
+					"type": "am:ServiceNumber"
+				},
+				"preferredName": {
+					"predicate": "am:preferredName",
+					"type": "am:PreferredName"
+				},
+				"promotionPostingTransfer": {
+					"predicate": "am:promotionPostingTransfer",
+					"type": "am:PromotionPostingTransfer"
+				},
+				"religion": {
+					"predicate": "am:religion",
+					"type": "STRING"
+				},
+				"rohe": {
+					"predicate": "am:rohe",
+					"type": "am:Rohe"
+				},
+				"serialNumber": {
+					"predicate": "am:serialNumber",
+					"type": "am:ServiceNumber"
+				},
+				"serviceNumber": {
+					"predicate": "am:serviceNumber",
+					"type": "am:ServiceNumber"
+				},
+				"userTag": {
+					"predicate": "am:user_tag",
+					"type": "STRING"
+				},
+				"waka": {
+					"predicate": "am:waka",
+					"type": "am:Waka"
+				},
+				"war": {
+					"predicate": "am:war",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:MilitaryRank": {
+			"context": "am:vernon/militaryrank",
+			"predicates": {
+				"label": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:MilitaryService": {
+			"predicates": {
+				"ageAtService": {
+					"predicate": "am:ageAtService",
+					"type": "INT"
+				},
+				"dateOfService": {
+					"predicate": "am:dateOfService",
+					"type": "STRING"
+				},
+				"dateOfServiceEarliest": {
+					"predicate": "am:dateOfService_earliest",
+					"type": "DATE"
+				},
+				"dateOfServiceLatest": {
+					"predicate": "am:dateOfService_latest",
+					"type": "DATE"
+				},
+				"dateSource": {
+					"predicate": "am:dateOfServiceSource",
+					"type": "STRING"
+				},
+				"militaryServiceNotes": {
+					"predicate": "am:militaryServiceNotes",
+					"type": "STRING"
+				},
+				"militaryServiceRank": {
+					"predicate": "am:militaryRank",
+					"type": "am:MilitaryRank"
+				},
+				"militaryUnit": {
+					"predicate": "am:militaryUnit",
+					"type": "am:MilitaryUnit"
+				},
+				"placeOfService": {
+					"predicate": "am:placeOfService",
+					"type": "STRING"
+				},
+				"placeSource": {
+					"predicate": "am:placeOfServiceSource",
+					"type": "STRING"
+				},
+				"rankSource": {
+					"predicate": "am:militaryRankSource",
+					"type": "STRING"
+				},
+				"unitSource": {
+					"predicate": "am:militaryUnitSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:MilitaryTraining": {
+			"predicates": {
+				"ageAtTraining": {
+					"predicate": "am:ageAtTraining",
+					"type": "INT"
+				},
+				"dateOfTraining": {
+					"predicate": "am:dateOfTraining",
+					"type": "STRING"
+				},
+				"dateOfTrainingEarliest": {
+					"predicate": "am:dateOfTraining_earliest",
+					"type": "DATE"
+				},
+				"dateOfTrainingLatest": {
+					"predicate": "am:dateOfTraining_latest",
+					"type": "DATE"
+				},
+				"dateSource": {
+					"predicate": "am:dateOfTrainingSource",
+					"type": "STRING"
+				},
+				"militaryTrainingNotes": {
+					"predicate": "am:militaryTrainingNotes",
+					"type": "STRING"
+				},
+				"militaryTrainingRank": {
+					"predicate": "am:rankDuringTraining",
+					"type": "am:MilitaryRank"
+				},
+				"militaryUnit": {
+					"predicate": "am:militaryUnit",
+					"type": "am:MilitaryUnit"
+				},
+				"rankSource": {
+					"predicate": "am:rankDuringTrainingSource",
+					"type": "STRING"
+				},
+				"unitSource": {
+					"predicate": "am:militaryUnitSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:MilitaryUnit": {
+			"predicates": {
+				"label": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:NextOfKinAtEmbarkation": {
+			"predicates": {
+				"addressDateEarliest": {
+					"predicate": "am:addressDate_earliest",
+					"type": "DATE"
+				},
+				"addressDateLatest": {
+					"predicate": "am:addressDate_latest",
+					"type": "DATE"
+				},
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"nextOfKin": {
+					"predicate": "am:nextOfKin",
+					"type": "STRING"
+				},
+				"nextOfKinLocation": {
+					"predicate": "am:nextOfKinLocation",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:NickName": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"nameDateEarliest": {
+					"predicate": "am:nameDate_earliest",
+					"type": "DATE"
+				},
+				"nameDateLatest": {
+					"predicate": "am:nameDate_latest",
+					"type": "DATE"
+				},
+				"nickName": {
+					"predicate": "foaf:nickname",
+					"type": "STRING"
+				},
+				"title": {
+					"predicate": "foaf:title",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Occupation": {
+			"context": "am:vernon/occupation",
+			"predicates": {
+				"label": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:occupation/%s",
+				"type": "format"
+			}
+		},
+		"am:Person": {
+			"predicates": {
+				"primaryMaker": {
+					"predicate": "am:primaryMaker",
+					"type": "ecrm:E21_Person"
+				},
+				"primaryProdRole": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"productionType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"productionValue": {
+					"predicate": "foaf:name",
+					"type": "STRING"
+				},
+				"secondaryMaker": {
+					"predicate": "am:secondaryMaker",
+					"type": "ecrm:E21_Person"
+				}
+			}
+		},
+		"am:PersonalRelationship": {
+			"predicates": {
+				"date": {
+					"predicate": "am:relationshipDate",
+					"type": "STRING"
+				},
+				"notes": {
+					"predicate": "am:relationshipNotes",
+					"type": "STRING"
+				},
+				"relationshipDateEarliest": {
+					"predicate": "am:relationshipDate_earliest",
+					"type": "DATE"
+				},
+				"relationshipDateLatest": {
+					"predicate": "am:relationshipDate_latest",
+					"type": "DATE"
+				},
+				"relationshipDateSource": {
+					"predicate": "am:relationshipDateSource",
+					"type": "STRING"
+				},
+				"relationshipSource": {
+					"predicate": "am:relationshipSource",
+					"type": "STRING"
+				},
+				"status": {
+					"predicate": "am:relationshipStatus",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Place": {
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:PlaceDetail": {
+			"predicates": {
+				"id": {
+					"predicate": "am:place_id",
+					"type": "URI"
+				},
+				"rank": {
+					"predicate": "am:place_rank",
+					"type": "STRING"
+				},
+				"value": {
+					"predicate": "am:place_value",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:PreferredName": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"firstName": {
+					"predicate": "foaf:firstName",
+					"type": "STRING"
+				},
+				"initials": {
+					"predicate": "foaf:initials",
+					"type": "STRING"
+				},
+				"lastName": {
+					"predicate": "foaf:familyName",
+					"type": "STRING"
+				},
+				"nameDateEarliest": {
+					"predicate": "am:nameDate_earliest",
+					"type": "DATE"
+				},
+				"nameDateLatest": {
+					"predicate": "am:nameDate_latest",
+					"type": "DATE"
+				},
+				"title": {
+					"predicate": "foaf:title",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:PromotionPostingTransfer": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"militaryUnit": {
+					"predicate": "am:militaryUnit",
+					"type": "am:MilitaryUnit"
+				},
+				"unitSource": {
+					"predicate": "am:militaryUnitSource",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:RelatedObjectAssociation": {
+			"predicates": {
+				"relatedObject": {
+					"predicate": "am:relatedObject",
+					"type": "URI"
+				},
+				"relatedObjectNotes": {
+					"predicate": "am:relatedObjectNotes",
+					"type": "STRING"
+				},
+				"relationship": {
+					"predicate": "am:relationship",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:Rohe": {
+			"context": "am:vernon/rohe",
+			"predicates": {
+				"value": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:rohe/%s",
+				"type": "format"
+			}
+		},
+		"am:ServiceNumber": {
+			"predicates": {
+				"conflict": {
+					"predicate": "am:conflict",
+					"type": "STRING"
+				},
+				"serviceNumber": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"serviceNumberDateEarliest": {
+					"predicate": "am:serviceNumberDate_earliest",
+					"type": "DATE"
+				},
+				"serviceNumberDateLatest": {
+					"predicate": "am:serviceNumberDate_latest",
+					"type": "DATE"
+				}
+			}
+		},
+		"am:Type": {
+			"predicates": {
+				"recordType": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"am:UserTag": {
+			"predicates": {
+				"lastModified": {
+					"predicate": "am:user_tag_lastModified",
+					"type": "STRING"
+				},
+				"userTag": {
+					"predicate": "am:user_tag",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:Vessel": {
+			"predicates": {
+				"displayNotes": {
+					"predicate": "am:displayNotes",
+					"type": "STRING"
+				},
+				"notes": {
+					"predicate": "am:vesselNotes",
+					"type": "STRING"
+				},
+				"value": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"am:Waka": {
+			"context": "am:vernon/waka",
+			"predicates": {
+				"value": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:waka/%s",
+				"type": "format"
+			}
+		},
+		"am:metadata": {
+			"predicates": {
+				"dataset": {
+					"predicate": "am:metadata/dataset",
+					"type": "STRING"
+				},
+				"lastModified": {
+					"predicate": "am:metadata/lastModified",
+					"type": "DATE"
+				},
+				"sourceSystem": {
+					"predicate": "am:metadata/sourceSystem",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:metadata/%s",
+				"type": "format"
+			}
+		},
+		"blt:topicLCSH": {
+			"predicates": {
+				"subjectType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"subjectValue": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E12_Production": {
+			"predicates": {
+				"authoring": {
+					"predicate": "am:authoring",
+					"type": "am:Person"
+				},
+				"carriedOutBy": {
+					"predicate": "ecrm:P14_carried_out_by",
+					"type": "ecrm:E40_Legal_Body"
+				},
+				"carriedOutByPerson": {
+					"predicate": "ecrm:P14_carried_out_by",
+					"type": "am:Person"
+				},
+				"fallsWithin": {
+					"predicate": "ecrm:P10_falls_within",
+					"type": "ecrm:E4_Period"
+				},
+				"hasTimeSpan": {
+					"predicate": "ecrm:P4_has_time_span",
+					"type": "ecrm:E52_Time-Span"
+				},
+				"otherContributors": {
+					"predicate": "am:otherContributors",
+					"type": "am:Person"
+				},
+				"primaryProdNotes": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"primaryProdTechnique": {
+					"predicate": "ecrm:P32_used_general_technique",
+					"type": "STRING"
+				},
+				"process": {
+					"predicate": "ecrm:P32_used_general_technique",
+					"type": "STRING"
+				},
+				"publishingConstant": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"support": {
+					"predicate": "am:hasSupport",
+					"type": "STRING"
+				},
+				"tookPlaceAt": {
+					"predicate": "ecrm:P7_took_place_at",
+					"type": "ecrm:E53_Place"
+				},
+				"tookPlaceAtID": {
+					"predicate": "ecrm:P7_took_place_at",
+					"type": "am:Place"
+				},
+				"witness": {
+					"predicate": "am:witnessedBy",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E20_Biological_Object": {
+			"predicates": {
+				"accessionDate": {
+					"predicate": "am:accessionDate",
+					"type": "DATE"
+				},
+				"accessionNumber": {
+					"predicate": "ecrm:P48_has_preferred_identifier",
+					"type": "ecrm:E42_Identifier"
+				},
+				"acquisition": {
+					"predicate": "ecrm:P24i_changed_ownership_through",
+					"type": "ecrm:E8_Acquisition"
+				},
+				"age": {
+					"predicate": "tn:lifeStage",
+					"type": "STRING"
+				},
+				"av-ref": {
+					"predicate": "ecrm:P138_has_representation",
+					"type": "ecrm:E38_Image"
+				},
+				"classDocument": {
+					"predicate": "am:classificationDocument",
+					"type": "ecrm:E31_Document"
+				},
+				"classification": {
+					"predicate": "am:classification",
+					"type": "am:Classification"
+				},
+				"classificationDateEndDate": {
+					"predicate": "am:classificationDateEndDate",
+					"type": "STRING"
+				},
+				"classificationDateStartDate": {
+					"predicate": "am:classificationDateStartDate",
+					"type": "STRING"
+				},
+				"classificationPerson": {
+					"predicate": "am:classificationPerson",
+					"type": "ecrm:E21_Person"
+				},
+				"classificationTypeStatus": {
+					"predicate": "dwc:typeStatus",
+					"type": "STRING"
+				},
+				"controllingInstitute": {
+					"predicate": "ecrm:P51_has_current_owner",
+					"type": "ecrm:E40_Legal_Body"
+				},
+				"creditLine": {
+					"predicate": "am:creditLine",
+					"type": "STRING"
+				},
+				"dateCreated": {
+					"predicate": "am:dateCreated",
+					"type": "DATE"
+				},
+				"document": {
+					"predicate": "ecrm:P70_documents",
+					"type": "ecrm:E31_Document"
+				},
+				"hasCurrentKeeper": {
+					"predicate": "ecrm:P50_has_current_keeper",
+					"type": "ecrm:E74_Group"
+				},
+				"isFoundOn": {
+					"predicate": "ecrm:P56_is_found_on",
+					"type": "ecrm:E27_Site"
+				},
+				"museumTag": {
+					"predicate": "am:museum_tag",
+					"type": "STRING"
+				},
+				"objectCount": {
+					"predicate": "tn:individualCount",
+					"type": "STRING"
+				},
+				"onDisplayFlag": {
+					"predicate": "am:onDisplayFlag",
+					"type": "STRING"
+				},
+				"qualifier": {
+					"predicate": "am:qualifier",
+					"type": "STRING"
+				},
+				"relatedObjects": {
+					"predicate": "am:isRelatedTo",
+					"type": "am:RelatedObjectAssociation"
+				},
+				"sex": {
+					"predicate": "tn:sex",
+					"type": "STRING"
+				},
+				"site": {
+					"predicate": "ecrm:P53_has_former_or_current_location",
+					"type": "ecrm:E27_Site"
+				},
+				"specimenCategory": {
+					"predicate": "tsp:kindOfSpecimen",
+					"type": "STRING"
+				},
+				"storageMethod": {
+					"predicate": "am:storageMethod",
+					"type": "STRING"
+				},
+				"userTag": {
+					"predicate": "am:user_tag",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E21_Person": {
+			"predicates": {
+				"firstName": {
+					"predicate": "foaf:firstName",
+					"type": "STRING"
+				},
+				"gender": {
+					"predicate": "dbp-ont:sex",
+					"type": "STRING"
+				},
+				"initials": {
+					"predicate": "foaf:initials",
+					"type": "STRING"
+				},
+				"lastName": {
+					"predicate": "foaf:familyName",
+					"type": "STRING"
+				},
+				"museumTag": {
+					"predicate": "am:museum_tag",
+					"type": "STRING"
+				},
+				"name": {
+					"predicate": "foaf:name",
+					"type": "STRING"
+				},
+				"productionType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"productionValue": {
+					"predicate": "foaf:name",
+					"type": "STRING"
+				},
+				"role": {
+					"predicate": "am:hasRole",
+					"type": "STRING"
+				},
+				"userTag": {
+					"predicate": "am:user_tag",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E22_Man-Made_Object": {
+			"predicates": {
+				"accessionDate": {
+					"predicate": "am:accessionDate",
+					"type": "DATE"
+				},
+				"accessionNumber": {
+					"predicate": "am:accessionNumber",
+					"type": "ecrm:E42_Identifier"
+				},
+				"associatedEvent": {
+					"predicate": "am:refersToEvent",
+					"type": "am:Event"
+				},
+				"associatedNotes": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"associatedPerson": {
+					"predicate": "am:refersToPerson",
+					"type": "ecrm:E21_Person"
+				},
+				"associatedPlace": {
+					"predicate": "am:refersToPlace",
+					"type": "am:Place"
+				},
+				"av-ref": {
+					"predicate": "ecrm:P138_has_representation",
+					"type": "ecrm:E38_Image"
+				},
+				"briefDescription": {
+					"predicate": "am:description",
+					"type": "STRING"
+				},
+				"classDocument": {
+					"predicate": "am:classificationDocument",
+					"type": "ecrm:E31_Document"
+				},
+				"classification": {
+					"predicate": "am:classification",
+					"type": "am:Classification"
+				},
+				"collection": {
+					"predicate": "ecrm:P46i_forms_part_of",
+					"type": "ecrm:E78_Collection"
+				},
+				"consistsOf": {
+					"predicate": "ecrm:P45_consists_of",
+					"type": "ecrm:E57_Material"
+				},
+				"controllingInstitute": {
+					"predicate": "ecrm:P52_has_current_owner",
+					"type": "STRING"
+				},
+				"creditLine": {
+					"predicate": "am:creditLine",
+					"type": "STRING"
+				},
+				"dateCreated": {
+					"predicate": "am:dateCreated",
+					"type": "DATE"
+				},
+				"hasCurrentKeeper": {
+					"predicate": "ecrm:P50_has_current_keeper",
+					"type": "ecrm:E74_Group"
+				},
+				"hasCurrentLocation": {
+					"predicate": "ecrm:P53_has_former_or_current_location",
+					"type": "ecrm:E53_Place"
+				},
+				"hasDimension": {
+					"predicate": "ecrm:P43_has_dimension",
+					"type": "ecrm:E54_Dimension"
+				},
+				"isAboutDate": {
+					"predicate": "am:isAboutDate",
+					"type": "ecrm:E52_Time-Span"
+				},
+				"museumTag": {
+					"predicate": "am:museum_tag",
+					"type": "STRING"
+				},
+				"nameTitle": {
+					"predicate": "am:nameTitle",
+					"type": "ecrm:E35_Title"
+				},
+				"objectCount": {
+					"predicate": "tn:individualCount",
+					"type": "STRING"
+				},
+				"onDisplayFlag": {
+					"predicate": "am:onDisplayFlag",
+					"type": "STRING"
+				},
+				"otherID": {
+					"predicate": "am:otherID",
+					"type": "ecrm:E42_Identifier"
+				},
+				"otherName": {
+					"predicate": "am:otherName",
+					"type": "ecrm:E35_Title"
+				},
+				"physicalDescription": {
+					"predicate": "am:physicalDescription",
+					"type": "STRING"
+				},
+				"publicAccessText": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"refersToDate": {
+					"predicate": "am:refersToDate",
+					"type": "ecrm:E52_Time-Span"
+				},
+				"relatedObjects": {
+					"predicate": "am:isRelatedTo",
+					"type": "am:RelatedObjectAssociation"
+				},
+				"showsVisualItem": {
+					"predicate": "ecrm:P65_shows_visual_item",
+					"type": "ecrm:E34_Inscription"
+				},
+				"site": {
+					"predicate": "ecrm:P53_has_former_or_current_location",
+					"type": "ecrm:E27_Site"
+				},
+				"subjectCategory": {
+					"predicate": "am:subjectCategory",
+					"type": "STRING"
+				},
+				"subjectEvent": {
+					"predicate": "am:isAboutEvent",
+					"type": "am:Event"
+				},
+				"subjectPerson": {
+					"predicate": "am:isAboutPerson",
+					"type": "ecrm:E21_Person"
+				},
+				"subjectPlace": {
+					"predicate": "am:isAboutPlace",
+					"type": "am:Place"
+				},
+				"userTag": {
+					"predicate": "am:user_tag",
+					"type": "STRING"
+				},
+				"wasProducedBy": {
+					"predicate": "ecrm:P108i_was_produced_by",
+					"type": "ecrm:E12_Production"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E27_Site": {
+			"predicates": {
+				"altitudeFrom": {
+					"predicate": "am-geopos:altitudeFrom",
+					"type": "STRING"
+				},
+				"altitudePrecision": {
+					"predicate": "am-geopos:altitudePrecision",
+					"type": "STRING"
+				},
+				"altitudeTo": {
+					"predicate": "am-geopos:altitudeTo",
+					"type": "STRING"
+				},
+				"collectionDateEndDate": {
+					"predicate": "am:collectionDateEndDate",
+					"type": "STRING"
+				},
+				"collectionDateStartDate": {
+					"predicate": "am:collectionDateStartDate",
+					"type": "STRING"
+				},
+				"collectionPeriod": {
+					"predicate": "ecrm:P86_falls_within",
+					"type": "ecrm:E52_Time-Span"
+				},
+				"datum": {
+					"predicate": "am-geopos:datum",
+					"type": "STRING"
+				},
+				"depthFrom": {
+					"predicate": "am-geopos:depthFrom",
+					"type": "STRING"
+				},
+				"depthPrecision": {
+					"predicate": "am-geopos:depthPrecision",
+					"type": "STRING"
+				},
+				"depthTo": {
+					"predicate": "am-geopos:depthTo",
+					"type": "STRING"
+				},
+				"fieldCollectionNotes": {
+					"predicate": "am:fieldCollectionNotes",
+					"type": "STRING"
+				},
+				"fieldCollectionPlace": {
+					"predicate": "am:fieldCollectionSite",
+					"type": "STRING"
+				},
+				"fieldCollector": {
+					"predicate": "ecrm:P14_carried_out_by",
+					"type": "ecrm:E21_Person"
+				},
+				"generalTechnique": {
+					"predicate": "am:collectionMethod",
+					"type": "STRING"
+				},
+				"habitat": {
+					"predicate": "am:habitat",
+					"type": "STRING"
+				},
+				"habitatNotes": {
+					"predicate": "am:habitatNotes",
+					"type": "STRING"
+				},
+				"identifiedBy": {
+					"predicate": "ecrm:P87_is_identified_by",
+					"type": "STRING"
+				},
+				"latitudeFrom": {
+					"predicate": "am-geopos:latitudeFrom",
+					"type": "STRING"
+				},
+				"latitudePrecision": {
+					"predicate": "am-geopos:latitudePrecision",
+					"type": "STRING"
+				},
+				"latitudeTo": {
+					"predicate": "am-geopos:latitudeTo",
+					"type": "STRING"
+				},
+				"longitudeFrom": {
+					"predicate": "am-geopos:longitudeFrom",
+					"type": "STRING"
+				},
+				"longitudePrecision": {
+					"predicate": "am-geopos:longitudePrecision",
+					"type": "STRING"
+				},
+				"longitudeTo": {
+					"predicate": "am-geopos:longitudeTo",
+					"type": "STRING"
+				},
+				"notes": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"petrology": {
+					"predicate": "am:petrology",
+					"type": "STRING"
+				},
+				"place": {
+					"predicate": "ecrm:P89_falls_within",
+					"type": "geo-ont:Feature"
+				},
+				"samplingEffort": {
+					"predicate": "am:samplingEffort",
+					"type": "STRING"
+				},
+				"samplingProtocol": {
+					"predicate": "am:samplingProtocol",
+					"type": "STRING"
+				},
+				"siteDescription": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"siteID": {
+					"predicate": "ecrm:P48_has_preferred_identifier",
+					"type": "ecrm:E42_Identifier"
+				},
+				"stratigraphicNotes": {
+					"predicate": "am:stratigraphicNotes",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E30_Rights": {
+			"predicates": {
+				"accessNotes": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"rightsType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"rightsValue": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E31_Document": {
+			"predicates": {
+				"abstract": {
+					"predicate": "am:abstract",
+					"type": "STRING"
+				},
+				"datePublished": {
+					"predicate": "am:datePublished",
+					"type": "STRING"
+				},
+				"documentType": {
+					"predicate": "am:documentType",
+					"type": "STRING"
+				},
+				"frequencyPublished": {
+					"predicate": "am:frequencyPublished",
+					"type": "STRING"
+				},
+				"isbn_issn": {
+					"predicate": "am:isbn_issn",
+					"type": "STRING"
+				},
+				"otherTitle": {
+					"predicate": "am:otherTitle",
+					"type": "ecrm:E35_Title"
+				},
+				"placePublished": {
+					"predicate": "am:placePublished",
+					"type": "STRING"
+				},
+				"primaryPerson": {
+					"predicate": "ecrm:P14_carried_out_by",
+					"type": "ecrm:E21_Person"
+				},
+				"publisher": {
+					"predicate": "am:publisher",
+					"type": "STRING"
+				},
+				"shortSummary": {
+					"predicate": "am:shortSummary",
+					"type": "STRING"
+				},
+				"title": {
+					"predicate": "ecrm:P102_has_title",
+					"type": "ecrm:E35_Title"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E34_Inscription": {
+			"predicates": {
+				"signature": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"signatureConstant": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"signatureMarks": {
+					"predicate": "rdfs:label",
+					"type": "STRING"
+				},
+				"signatureMarksMethod": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"signatureMarksPart": {
+					"predicate": "am:hasPart",
+					"type": "STRING"
+				},
+				"signatureMarksType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E35_Title": {
+			"predicates": {
+				"alternativeTitle": {
+					"predicate": "am:alternativeTitle",
+					"type": "ecrm:E41_Appellation"
+				},
+				"constantPrimaryName": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"deedTitle": {
+					"predicate": "am:deedTitle",
+					"type": "ecrm:E41_Appellation"
+				},
+				"title": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"titleType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"titleValue": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E38_Image": {
+			"predicates": {
+				"caption": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"copyright": {
+					"predicate": "am:copyright",
+					"type": "ecrm:E30_Rights"
+				},
+				"exif_DateTime": {
+					"predicate": "am:exif_DateTime",
+					"type": "STRING"
+				},
+				"exif_ImageDescription": {
+					"predicate": "am:exif_imageDescription",
+					"type": "STRING"
+				},
+				"exif_ImageLength": {
+					"predicate": "am:exif_ImageLength",
+					"type": "STRING"
+				},
+				"exif_ImageWidth": {
+					"predicate": "am:exif_ImageWidth",
+					"type": "STRING"
+				},
+				"exif_Make": {
+					"predicate": "am:exif_Make",
+					"type": "STRING"
+				},
+				"exif_Model": {
+					"predicate": "am:exif_Model",
+					"type": "STRING"
+				},
+				"exif_Orientation": {
+					"predicate": "am:exif_Orientation",
+					"type": "STRING"
+				},
+				"exif_ResolutionUnit": {
+					"predicate": "am:exif_ResolutionUnit",
+					"type": "STRING"
+				},
+				"exif_Software": {
+					"predicate": "am:exif_Software",
+					"type": "STRING"
+				},
+				"exif_XResolution": {
+					"predicate": "am:exif_XResolution",
+					"type": "STRING"
+				},
+				"exif_YResolution": {
+					"predicate": "am:exif_YResolution",
+					"type": "STRING"
+				},
+				"location": {
+					"predicate": "am:mediaLocation",
+					"type": "STRING"
+				},
+				"pdf_Creator": {
+					"predicate": "am:pdf_Creator",
+					"type": "STRING"
+				},
+				"pdf_Producer": {
+					"predicate": "am:pdf_Producer",
+					"type": "STRING"
+				},
+				"publicationStatus": {
+					"predicate": "am:publicationStatus",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E40_Legal_Body": {
+			"predicates": {
+				"controllingInstitute": {
+					"predicate": "ecrm:P51_has_current_owner",
+					"type": "STRING"
+				},
+				"corporateAuthor": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"publisher": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E41_Appellation": {
+			"predicates": {
+				"appellationType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"appellationValue": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E42_Identifier": {
+			"predicates": {
+				"identifierType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"identifierValue": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"label": {
+					"predicate": "rdf:label",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E4_Period": {
+			"predicates": {
+				"primaryProdPeriod": {
+					"predicate": "rdfs:label",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E50_Date": {
+			"predicates": {
+				"date": {
+					"predicate": "rdf:value",
+					"type": "DATE"
+				}
+			}
+		},
+		"ecrm:E52_Time-Span": {
+			"predicates": {
+				"associatedDateEndDate": {
+					"predicate": "am:associatedDateEndDate",
+					"type": "DATE"
+				},
+				"associatedDateStartDate": {
+					"predicate": "am:associatedDateStartDate",
+					"type": "DATE"
+				},
+				"date": {
+					"predicate": "rdfs:label",
+					"type": "STRING"
+				},
+				"datePublished": {
+					"predicate": "am:datePublished",
+					"type": "STRING"
+				},
+				"fieldCollDateEndDate": {
+					"predicate": "am:fieldCollDateEndDate",
+					"type": "STRING"
+				},
+				"fieldCollDateStartDate": {
+					"predicate": "am:fieldCollDateStartDate",
+					"type": "STRING"
+				},
+				"ongoingThroughout": {
+					"predicate": "ecrm:P81_ongoing_throughout",
+					"type": "ecrm:E61_Time_primitive"
+				},
+				"primaryProdDate": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"primaryProdDateEarliest": {
+					"predicate": "ecrm:P82a_begin_of_the_begin",
+					"type": "DATE"
+				},
+				"primaryProdDateLatest": {
+					"predicate": "ecrm:P82b_end_of_the_end",
+					"type": "DATE"
+				},
+				"subjectDateEndDate": {
+					"predicate": "am:subjectDateEndDate",
+					"type": "STRING"
+				},
+				"subjectDateStartDate": {
+					"predicate": "am:subjectDateStartDate",
+					"type": "STRING"
+				},
+				"timePeriod": {
+					"predicate": "am:timePeriod",
+					"type": "STRING"
+				},
+				"timespan": {
+					"predicate": "ecrm:P82_at_some_time_within",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E53_Place": {
+			"predicates": {
+				"currentLocation": {
+					"predicate": "rdfs:label",
+					"type": "STRING"
+				},
+				"fieldCollectionSite": {
+					"predicate": "am:fieldCollectionSite",
+					"type": "STRING"
+				},
+				"locationType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"locationValue": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				},
+				"placeCaptured": {
+					"predicate": "am:placeCaptured",
+					"type": "STRING"
+				},
+				"placePublished": {
+					"predicate": "am:placePublished",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E54_Dimension": {
+			"predicates": {
+				"measurementDescription": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"measurementNotes": {
+					"predicate": "am:measurementNotes",
+					"type": "STRING"
+				},
+				"measurementPart": {
+					"predicate": "am:hasPart",
+					"type": "STRING"
+				},
+				"measurementPrecision": {
+					"predicate": "am:measurementPrecision",
+					"type": "STRING"
+				},
+				"measurementReading": {
+					"predicate": "ecrm:P90_has_value",
+					"type": "STRING"
+				},
+				"measurementType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E55_Type": {
+			"predicates": {
+				"collectionMethod": {
+					"predicate": "am:collectionMethod",
+					"type": "STRING"
+				},
+				"fieldCollection": {
+					"predicate": "am:fieldCollection",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:e55Type/%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E56_Language": {
+			"predicates": {
+				"language": {
+					"predicate": "rdfs:label",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E57_Material": {
+			"predicates": {
+				"mediaMaterials": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "am:Material"
+				},
+				"mediaMaterialsDescription": {
+					"predicate": "rdfs:label",
+					"type": "STRING"
+				},
+				"mediaMaterialsNotes": {
+					"predicate": "ecrm:P3_has_note",
+					"type": "STRING"
+				},
+				"mediaMaterialsPart": {
+					"predicate": "am:hasPart",
+					"type": "STRING"
+				},
+				"shapeDescription": {
+					"predicate": "am:hasShape",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E74_Group": {
+			"predicates": {
+				"department": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E78_Collection": {
+			"predicates": {
+				"collection": {
+					"predicate": "rdf:value",
+					"type": "STRING"
+				}
+			}
+		},
+		"ecrm:E84_Information_Carrier": {
+			"predicates": {
+				"RDACarrier": {
+					"predicate": "rda-carrier:RDACarrierType",
+					"type": "STRING"
+				},
+				"RDAContent": {
+					"predicate": "rda-content:RDAContentType",
+					"type": "STRING"
+				},
+				"RDAMedia": {
+					"predicate": "rda-media:RDAMediaType",
+					"type": "STRING"
+				},
+				"abstract": {
+					"predicate": "dc:abstract",
+					"type": "STRING"
+				},
+				"access": {
+					"predicate": "am:access",
+					"type": "ecrm:E30_Rights"
+				},
+				"accessionDate": {
+					"predicate": "am:accessionDate",
+					"type": "DATE"
+				},
+				"accessionNumber": {
+					"predicate": "am:accessionNumber",
+					"type": "ecrm:E42_Identifier"
+				},
+				"acknowledgement": {
+					"predicate": "am:acknowledgement",
+					"type": "STRING"
+				},
+				"acquisitionSource": {
+					"predicate": "am:acquisitionSource",
+					"type": "STRING"
+				},
+				"acquisitionStatement": {
+					"predicate": "am:acquisitionStatement",
+					"type": "STRING"
+				},
+				"alternativeTitle": {
+					"predicate": "dcterms:alternative",
+					"type": "STRING"
+				},
+				"associatedMaterial": {
+					"predicate": "am:associatedMaterial",
+					"type": "STRING"
+				},
+				"attachment": {
+					"predicate": "am:attachment",
+					"type": "STRING"
+				},
+				"av-ref": {
+					"predicate": "ecrm:P138_has_representation",
+					"type": "ecrm:E38_Image"
+				},
+				"bioNotes": {
+					"predicate": "am:bioNotes",
+					"type": "STRING"
+				},
+				"bookCoverImage": {
+					"predicate": "am:bookCoverImage",
+					"type": "am:Image"
+				},
+				"callNumber": {
+					"predicate": "am:callNumber",
+					"type": "ecrm:E42_Identifier"
+				},
+				"cardImage": {
+					"predicate": "am:cardImage",
+					"type": "am:Image"
+				},
+				"childOf": {
+					"predicate": "am:isChildOf",
+					"type": "ecrm:E84_Information_Carrier"
+				},
+				"citation": {
+					"predicate": "dcterms:bibliographicCitation",
+					"type": "STRING"
+				},
+				"classificationNumber": {
+					"predicate": "am:classificationNumber",
+					"type": "ecrm:E42_Identifier"
+				},
+				"collection": {
+					"predicate": "ecrm:P46i_forms_part_of",
+					"type": "ecrm:E78_Collection"
+				},
+				"content": {
+					"predicate": "am:content",
+					"type": "STRING"
+				},
+				"copyright": {
+					"predicate": "am:copyright",
+					"type": "ecrm:E30_Rights"
+				},
+				"creator": {
+					"predicate": "am:creator",
+					"type": "STRING"
+				},
+				"dateCreated": {
+					"predicate": "am:dateCreated",
+					"type": "STRING"
+				},
+				"datum": {
+					"predicate": "am-geopos:datum",
+					"type": "STRING"
+				},
+				"dcmiType": {
+					"predicate": "dc:dcmiType",
+					"type": "STRING"
+				},
+				"deedTitle": {
+					"predicate": "am:deedTitleAlternative",
+					"type": "STRING"
+				},
+				"description": {
+					"predicate": "dc:description",
+					"type": "STRING"
+				},
+				"edition": {
+					"predicate": "bibo:edition",
+					"type": "STRING"
+				},
+				"familySubject": {
+					"predicate": "am:familySubject",
+					"type": "blt:topicLCSH"
+				},
+				"format": {
+					"predicate": "dc:format",
+					"type": "STRING"
+				},
+				"frequencyPublished": {
+					"predicate": "am:frequencyPublished",
+					"type": "STRING"
+				},
+				"fullText": {
+					"predicate": "am:fulltext",
+					"type": "STRING"
+				},
+				"generalImage": {
+					"predicate": "am:generalImage",
+					"type": "am:Image"
+				},
+				"generalSubject": {
+					"predicate": "am:generalSubject",
+					"type": "blt:topicLCSH"
+				},
+				"geoRef": {
+					"predicate": "am:geoRef",
+					"type": "STRING"
+				},
+				"geoSubject": {
+					"predicate": "am:geoSubject",
+					"type": "blt:topicLCSH"
+				},
+				"hasCurrentKeeper": {
+					"predicate": "ecrm:P50_has_current_keeper",
+					"type": "ecrm:E74_Group"
+				},
+				"hasType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "am:Type"
+				},
+				"holding": {
+					"predicate": "am:holding",
+					"type": "STRING"
+				},
+				"indexedIn": {
+					"predicate": "am:indexedIn",
+					"type": "STRING"
+				},
+				"informationCarrier": {
+					"predicate": "dcterms:isPartOf",
+					"type": "ecrm:E84_Information_Carrier"
+				},
+				"inscription": {
+					"predicate": "ecrm:P65_shows_visual_item",
+					"type": "ecrm:E34_Inscription"
+				},
+				"isbn": {
+					"predicate": "bibo:identifier",
+					"type": "STRING"
+				},
+				"issn": {
+					"predicate": "am:isbn_issn",
+					"type": "STRING"
+				},
+				"issuesPerVolume": {
+					"predicate": "am:issuesPerVolume",
+					"type": "STRING"
+				},
+				"keyword": {
+					"predicate": "am:keyword",
+					"type": "STRING"
+				},
+				"language": {
+					"predicate": "ecrm:E72_has_language",
+					"type": "ecrm:E56_Language"
+				},
+				"link": {
+					"predicate": "am:link",
+					"type": "STRING"
+				},
+				"location": {
+					"predicate": "am:location",
+					"type": "ecrm:E53_Place"
+				},
+				"locationOfOriginal": {
+					"predicate": "am:locationOfOriginal",
+					"type": "ecrm:E53_Place"
+				},
+				"maoriSubject": {
+					"predicate": "am:maoriSubject",
+					"type": "blt:topicLCSH"
+				},
+				"medium": {
+					"predicate": "dcterms:medium",
+					"type": "STRING"
+				},
+				"museumTag": {
+					"predicate": "am:museum_tag",
+					"type": "STRING"
+				},
+				"negativeNumber": {
+					"predicate": "am:negativeNumber",
+					"type": "ecrm:E42_Identifier"
+				},
+				"notes": {
+					"predicate": "am:notes",
+					"type": "STRING"
+				},
+				"otherNumbers": {
+					"predicate": "am:otherNumbers",
+					"type": "ecrm:E42_Identifier"
+				},
+				"parentChildFlag": {
+					"predicate": "am:parentChildFlag",
+					"type": "STRING"
+				},
+				"parentChildLink": {
+					"predicate": "am:parentChildLink",
+					"type": "STRING"
+				},
+				"parentOf": {
+					"predicate": "am:isParentOf",
+					"type": "ecrm:E84_Information_Carrier"
+				},
+				"physicalDescription": {
+					"predicate": "am:physicalDescription",
+					"type": "STRING"
+				},
+				"production": {
+					"predicate": "ecrm:P108i_was_produced_by",
+					"type": "ecrm:E12_Production"
+				},
+				"projection": {
+					"predicate": "am:projection",
+					"type": "STRING"
+				},
+				"provenance": {
+					"predicate": "am:provenance",
+					"type": "STRING"
+				},
+				"referenceCenotaph": {
+					"predicate": "am:referenceCenotaph",
+					"type": "STRING"
+				},
+				"referenceMA": {
+					"predicate": "am:referenceManuscriptArchive",
+					"type": "STRING"
+				},
+				"referenceNumber": {
+					"predicate": "am:referenceNumber",
+					"type": "ecrm:E42_Identifier"
+				},
+				"referencePD": {
+					"predicate": "am:referencePaintingDrawing",
+					"type": "STRING"
+				},
+				"referencePhotograph": {
+					"predicate": "am:referencePhotograph",
+					"type": "STRING"
+				},
+				"referencePublications": {
+					"predicate": "am:referencePublication",
+					"type": "STRING"
+				},
+				"referenceVernon": {
+					"predicate": "am:referenceVernon",
+					"type": "STRING"
+				},
+				"registrationNumber": {
+					"predicate": "am:registrationNumber",
+					"type": "ecrm:E42_Identifier"
+				},
+				"responsibility": {
+					"predicate": "am:statementOfResponsibility",
+					"type": "STRING"
+				},
+				"rights": {
+					"predicate": "ecrm:P104_is_subject_to",
+					"type": "ecrm:E30_Rights"
+				},
+				"scale": {
+					"predicate": "am:scale",
+					"type": "STRING"
+				},
+				"series": {
+					"predicate": "am:series",
+					"type": "STRING"
+				},
+				"source": {
+					"predicate": "dc:source",
+					"type": "STRING"
+				},
+				"specialIssues": {
+					"predicate": "am:specialIssues",
+					"type": "STRING"
+				},
+				"temporaryLocation": {
+					"predicate": "am:temporaryLocation",
+					"type": "ecrm:E53_Place"
+				},
+				"timeSpan": {
+					"predicate": "ecrm:P86_falls_within",
+					"type": "ecrm:E52_Time-Span"
+				},
+				"title": {
+					"predicate": "ecrm:P102_has_title",
+					"type": "ecrm:E35_Title"
+				},
+				"unit": {
+					"predicate": "am:unit",
+					"type": "STRING"
+				},
+				"url": {
+					"predicate": "am:externalReference",
+					"type": "STRING"
+				},
+				"urlNotes": {
+					"predicate": "am:externalReferenceNotes",
+					"type": "STRING"
+				},
+				"usedIn": {
+					"predicate": "am:usedIn",
+					"type": "STRING"
+				},
+				"userTag": {
+					"predicate": "am:user_tag",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"ecrm:E8_Acquisition": {
+			"predicates": {
+				"altitudeFrom": {
+					"predicate": "am-geopos:altitudeFrom",
+					"type": "STRING"
+				},
+				"altitudePrecision": {
+					"predicate": "am-geopos:altitudePrecision",
+					"type": "STRING"
+				},
+				"altitudeTo": {
+					"predicate": "am-geopos:altitudeTo",
+					"type": "STRING"
+				},
+				"collectionPeriod": {
+					"predicate": "ecrm:P86_falls_within",
+					"type": "ecrm:E52_Time-Span"
+				},
+				"datum": {
+					"predicate": "am-geopos:datum",
+					"type": "STRING"
+				},
+				"depthFrom": {
+					"predicate": "am-geopos:depthFrom",
+					"type": "STRING"
+				},
+				"depthPrecision": {
+					"predicate": "am-geopos:depthPrecision",
+					"type": "STRING"
+				},
+				"depthTo": {
+					"predicate": "am-geopos:depthTo",
+					"type": "STRING"
+				},
+				"fieldCollector": {
+					"predicate": "ecrm:P14_carried_out_by",
+					"type": "ecrm:E21_Person"
+				},
+				"generalTechnique": {
+					"predicate": "ecrm:P32_used_general_technique",
+					"type": "ecrm:E55_Type"
+				},
+				"hasType": {
+					"predicate": "ecrm:P2_has_type",
+					"type": "STRING"
+				},
+				"isFoundOn": {
+					"predicate": "ecrm:P56_is_found_on",
+					"type": "ecrm:E27_Site"
+				},
+				"isLocatedOnOrWithin": {
+					"predicate": "ecrm:P59_is_located_on_or_within",
+					"type": "ecrm:E53_Place"
+				},
+				"latitudeFrom": {
+					"predicate": "am-geopos:latitudeFrom",
+					"type": "STRING"
+				},
+				"latitudePrecision": {
+					"predicate": "am-geopos:latitudePrecision",
+					"type": "STRING"
+				},
+				"latitudeTo": {
+					"predicate": "am-geopos:latitudeTo",
+					"type": "STRING"
+				},
+				"localityDescription": {
+					"predicate": "am:localityDescription",
+					"type": "STRING"
+				},
+				"longitudeFrom": {
+					"predicate": "am-geopos:longitudeFrom",
+					"type": "STRING"
+				},
+				"longitudePrecision": {
+					"predicate": "am-geopos:longitudePrecision",
+					"type": "STRING"
+				},
+				"longitudeTo": {
+					"predicate": "am-geopos:longitudeTo",
+					"type": "STRING"
+				},
+				"tookPlaceAt": {
+					"predicate": "ecrm:P7_took_place_at",
+					"type": "ecrm:E27_Site"
+				}
+			}
+		},
+		"geo-ont:Feature": {
+			"predicates": {
+				"childOf": {
+					"predicate": "am:isChildOf",
+					"type": "geo-ont:Feature"
+				},
+				"name": {
+					"predicate": "geo-ont:name",
+					"type": "STRING"
+				},
+				"x-place": {
+					"predicate": "am:place_details",
+					"type": "am:PlaceDetail"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"tc:TaxonConcept": {
+			"predicates": {
+				"childOf": {
+					"predicate": "tc:isChildTaxonOf",
+					"type": "tc:TaxonConcept"
+				},
+				"hasName": {
+					"predicate": "tc:hasName",
+					"type": "tn:TaxonName"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		},
+		"tn:TaxonName": {
+			"predicates": {
+				"authorship": {
+					"predicate": "tn:authorship",
+					"type": "STRING"
+				},
+				"currentStatus": {
+					"predicate": "am:classification/currentStatus",
+					"type": "STRING"
+				},
+				"genusPart": {
+					"predicate": "tn:genusPart",
+					"type": "STRING"
+				},
+				"infraspecificEpithet": {
+					"predicate": "tn:infraspecificEpithet",
+					"type": "STRING"
+				},
+				"rank": {
+					"predicate": "tn:rank",
+					"type": "URI"
+				},
+				"rankString": {
+					"predicate": "tn:rankString",
+					"type": "STRING"
+				},
+				"specificEpithet": {
+					"predicate": "tn:specificEpithet",
+					"type": "STRING"
+				},
+				"title": {
+					"predicate": "dc:title",
+					"type": "STRING"
+				},
+				"value": {
+					"predicate": "tn:nameComplete",
+					"type": "STRING"
+				}
+			},
+			"subject": {
+				"impl": "am:%s",
+				"type": "format"
+			}
+		}
+	}
+}
