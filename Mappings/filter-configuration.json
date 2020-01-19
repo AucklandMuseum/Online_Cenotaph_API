@@ -1,0 +1,397 @@
+[
+	{
+		"datasets": {
+			"birds/land vertebrates": "Open",
+			"botany": "Open",
+			"entomology": "Open",
+			"geology": "Open",
+			"land mammals/land vertebrates": "Open",
+			"marine": "Open",
+			"reptiles and amphibians/land vertebrates": "Open"
+		},
+		"filters": {
+			"Open": [],
+			"Predominantly Closed": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Collection Method",
+				"Field Coll Altitude from",
+				"Field Coll Altitude Precision",
+				"Field Coll Altitude to",
+				"Field Coll Depth from",
+				"Field Coll Depth Precision",
+				"Field Coll Depth to",
+				"Field Coll Site",
+				"Latitude (export)",
+				"Field Coll Latitude Precision",
+				"Latitude To (export)",
+				"Longitude (export)",
+				"Field Coll Longitude Precision",
+				"Longitude To (export)",
+				"Locality Description",
+				"Sampling Effort",
+				"Sampling Protocol",
+				"Field Coll General Notes",
+				"Habitat Description",
+				"Class Doc Full",
+				"Photo/Audio-Visual Ref",
+				"Public Access Text"
+			],
+			"Predominantly Open": [
+				"Latitude To (export)",
+				"Longitude (export)",
+				"Field Coll Longitude Precision",
+				"Longitude To (export)",
+				"Locality Description",
+				"Field Coll General Notes",
+				"Habitat Description"
+			]
+		}
+	},
+	{
+		"datasets": {
+			"ethnology": "Open",
+			"world/ethnology": "Open"
+		},
+		"filters": {
+			"Open": [],
+			"Predominantly Closed": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Classification",
+				"Class Doc Full",
+				"Researcher Comments/Remarks",
+				"Associated Person",
+				"Photo/Audio-Visual Ref",
+				"Condition Keyword",
+				"Usage",
+				"Shape Keyword",
+				"Decoration Keyword",
+				"Colour",
+				"Public Access Text"
+			],
+			"Predominantly Open": [
+				"Class Doc Full"
+			]
+		}
+	},
+	{
+		"datasets": {
+			"history": "Open"
+		},
+		"filters": {
+			"Open": [
+				"Object Count Notes"
+			],
+			"Predominantly Closed": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Classification",
+				"Class Doc Full",
+				"Researcher Comments/Remarks",
+				"Associated Person",
+				"Photo/Audio-Visual Ref",
+				"Condition Keyword",
+				"Usage",
+				"Shape Keyword",
+				"Decoration Keyword",
+				"Colour",
+				"Public Access Text",
+				"Object Count Notes"
+			],
+			"Predominantly Open": [
+				"Class Doc Full",
+				"Object Count Notes"
+			]
+		}
+	},
+	{
+		"datasets": {
+			"archaeology": "Open"
+		},
+		"filters": {
+			"Open": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Grid Reference"
+			],
+			"Predominantly Closed": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Field Coll Person",
+				"Field Coll Method",
+				"Field Coll Date",
+				"Grid Reference",
+				"Condition Keyword",
+				"Usage",
+				"Shape Keyword",
+				"Decoration Keyword",
+				"Colour",
+				"Public Access Text"
+			],
+			"Predominantly Open": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Field Coll Person",
+				"Field Coll Method",
+				"Field Coll Date",
+				"Grid Reference"
+			]
+		}
+	},
+	{
+		"datasets": {
+			"pacific/ethnology": "Open"
+		},
+		"filters": {
+			"Open": ["Classification"],
+			"Predominantly Closed": [
+				"Other Id Type",
+				"Public Access Text",
+				"Item Count (default to 1)",
+				"Acquisition Source",
+				"Acquisition Method",
+				"Acquisition Source Role",
+				"Credit Line",
+				"Collection",
+				"Name/Title",
+				"Classification",
+				"Physical Description",
+				"Class Doc Full",
+				"Researcher Comments/Remarks",
+				"Type",
+				"Associated Date",
+				"Assoc Date (Latest)",
+				"Assoc Date (Earliest)",
+				"Associated Event",
+				"Associated Notes",
+				"Associated Period Notes",
+				"Production Notes",
+				"Associated Person",
+				"Associated Role",
+				"Associated Place",
+				"Photo/Audio-Visual Ref",
+				"Related Objects",
+				"Object Relationship",
+				"Subject Category",
+				"Subject Date",
+				"Subject Date Latest",
+				"Subject Date Earliest",
+				"Subject Event",
+				"Subject Place",
+				"Primary Maker",
+				"Primary Prod Role",
+				"Primary Prod Date",
+				"Primary Prod Date (Earliest)",
+				"Primary Prod Date (Latest)",
+				"2nd Prod Date (Earliest)",
+				"2nd Prod Date (Latest)",
+				"Primary Prod Period",
+				"Primary Prod Place",
+				"Primary Prod Technique",
+				"Secondary Maker",
+				"Style",
+				"Measurement Description",
+				"Measurement Notes",
+				"Measurement Reading",
+				"Measurement Type",
+				"Media/Materials",
+				"Media/Materials Description",
+				"Media/Materials Notes",
+				"Shape Description",
+				"Signature/Marks",
+				"Signature/Marks Method",
+				"Signature/Marks Type",
+				"Signature/Marks Part",
+				"Field Coll Site",
+				"Field Coll Site Description",
+				"Field Coll Person",
+				"Field Coll Method",
+				"Field Coll Date",
+				"Production Notes",
+				"Associated Notes",
+				"Usage",
+				"Shape Keyword",
+				"Decoration Keyword",
+				"Colour",
+				"Public Access Text"
+			],
+			"Predominantly Open": ["Classification"]
+		}
+	},
+	{
+		"datasets": {
+			"applied arts and design": "Open"
+		},
+		"filters": {
+			"Open": [],
+			"Predominantly Closed": [
+				"Photo/Audio-Visual Ref",
+				"Acquisition Source",
+				"Acquisition Method",
+				"Usage",
+				"Shape Keyword",
+				"Decoration Keyword",
+				"Colour",
+				"Public Access Text"
+			],
+			"Predominantly Open": []
+		}
+	},
+	{
+		"datasets": {
+			"maori/ethnology": "Restricted Access"
+		},
+		"filters": {
+			"Open": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Other Name"
+			],
+			"Predominantly Closed": [
+				"Other Id Type",
+				"Public Access Text",
+				"Current Location",
+				"Item Count (default to 1)",
+				"Acquisition Source",
+				"Acquisition Method",
+				"Credit Line",
+				"Collection",
+				"Provenance Details",
+				"Provenance Person",
+				"Provenance Place",
+				"Provenance Date",
+				"Other Name",
+				"Classification",
+				"Physical Description",
+				"Object Type",
+				"Cultural Origin",
+				"Field Coll Site",
+				"Researcher Comments/Remarks",
+				"Researcher",
+				"Attribution Comments/Remarks",
+				"Type",
+				"Attributed By",
+				"Associated Date",
+				"Assoc Date (Latest)",
+				"Assoc Date (Earliest)",
+				"Associated Event",
+				"Associated Notes",
+				"Associated Period Notes",
+				"Associated Person",
+				"Associated Role",
+				"Associated Place",
+				"Copyright Details",
+				"Related Objects",
+				"Object Relationship",
+				"Subject Category",
+				"Subject Date",
+				"Subject Event",
+				"Subject Place",
+				"Subject Person",
+				"Primary Maker",
+				"Primary ProdRole",
+				"Primary Prod date",
+				"Primary Prod Date",
+				"Primary Prod Earliest Date",
+				"Primary Prod Latest Date",
+				"Primary Prod Period",
+				"Primary Prod Place",
+				"Primary Prod Technique",
+				"Style",
+				"Measurement Description",
+				"Measurement Notes",
+				"Measurement Reading",
+				"Measurement Type",
+				"Media/Materials",
+				"Media/Materials Description",
+				"Media/Materials Notes",
+				"Shape Description",
+				"Signature/Marks",
+				"Signature/Marks Method",
+				"Signature/Marks Type",
+				"Signature/Marks Part",
+				"Field Coll Site",
+				"Field Coll Person",
+				"Field Coll Method",
+				"Field Coll Date",
+				"Grid Reference",
+				"Usage",
+				"Notes on Usage",
+				"Production Notes",
+				"Condition Keyword",
+				"Completeness Keyword",
+				"Completeness - Notes",
+				"Usage",
+				"Shape Keyword",
+				"Decoration Keyword",
+				"Colour",
+				"Public Access Text"
+			],
+			"Predominantly Open": [
+				"Acquisition Source",
+				"Acquisition Method",
+				"Other Name"
+			]
+		}
+	},
+	{
+		"datasets": {
+			"catalogq40": "Open",
+			"ephemera": "Open",
+			"manuscripts and archives": "Open",
+			"painting and drawings": "Open",
+			"photography": "Open"
+		},
+		"filters": {
+			"Open": [],
+			"Predominantly Closed": [],
+			"Predominantly Open": []
+		}
+	},
+	{
+		"datasets": {
+			"site": "Open"
+		},
+		"filters": {
+			"Open": [],
+			"Predominantly Closed": [
+				"Site Event remarks",
+				"Stratigraphy",
+				"Habitat",
+				"Habitat Notes",
+				"Latitude (export)",
+				"Latitude Precision",
+				"Latitude To (export)",
+				"Longitude (export)",
+				"Longitude Precision",
+				"Longitude To (export)",
+				"Notes",
+				"Altitude from (export)",
+				"Altitude Precision",
+				"Altitude to (export)",
+				"Datum",
+				"Depth from",
+				"Depth Precision",
+				"Depth to",
+				"Field Collection Notes",
+				"Sampling Effort",
+				"Sampling Protocol",
+				"Site Description",
+				"Stratigraphic",
+				"Collection Method",
+				"Petrology",
+				"Public Access Text"
+			],
+			"Predominantly Open": [
+				"Latitude (export)",
+				"Latitude Precision",
+				"Latitude To (export)",
+				"Longitude (export)",
+				"Longitude Precision",
+				"Longitude To (export)",
+				"Datum"
+			]
+		}
+	}
+]
