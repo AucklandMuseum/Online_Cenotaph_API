@@ -1,0 +1,133 @@
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc:<http://purl.org/dc/elements/1.1/>
+PREFIX foaf:<http://xmlns.com/foaf/0.1/>
+PREFIX geo-ont:<http://www.geonames.org/ontology#>
+PREFIX ecrm:<http://erlangen-crm.org/current#>
+PREFIX am:<http://rdf.aucklandmuseum.com/>
+PREFIX dwc:<http://rs.tdwg.org/dwc/terms/>
+PREFIX tsp: <http://rs.tdwg.org/ontology/voc/Specimen#>
+PREFIX tn: <http://rs.tdwg.org/ontology/voc/TaxonName#>
+
+select * where {
+	?subject rdf:type ?type .
+	?subject ecrm:P50_has_current_keeper/rdf:value ?department .
+	OPTIONAL { ?subject am:isTaonga ?isTaonga } .
+	OPTIONAL { ?subject dwc:typeStatus ?type_status } .
+	OPTIONAL { ?subject am:subject/rdf:value ?type_subject } .
+	OPTIONAL { ?subject am:series ?series } .
+	OPTIONAL { ?subject dc:format ?dc_format } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P32_used_general_technique ?process } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/am:hasSupport ?support } .
+	OPTIONAL { ?subject am:copyright/rdf:value ?copyright } .
+	OPTIONAL { ?subject am:culturalOrigin ?culturalOrigin } .
+	
+	OPTIONAL { ?subject am:classificationPerson/foaf:name ?dc_contributor1 } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P14_carried_out_by/foaf:name ?dc_contributor2 } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P14_carried_out_by/rdf:value ?dc_contributor3 } .
+	OPTIONAL { ?subject am:creator ?dc_contributor4 } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P14_carried_out_by/am:primaryMaker/foaf:name ?dc_contributor5 } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P14_carried_out_by/am:secondaryMaker/foaf:name ?dc_contributor6 } .
+
+	OPTIONAL { ?subject am:classificationDate ?dc_date1 } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P4_has_time_span/ecrm:P3_has_note ?dc_date2 } .
+
+	OPTIONAL { ?subject dc:description ?dc_description1 } .
+	OPTIONAL { ?subject am:description ?dc_description2 } .
+	OPTIONAL { ?subject am:hasRole ?dc_description3 } .
+
+	OPTIONAL { ?subject ecrm:P48_has_preferred_identifier/rdf:value ?dc_identifier1 } .
+	OPTIONAL { ?subject am:referenceNumber/rdf:value ?dc_identifier2 } .
+	OPTIONAL { ?subject ecrm:P1_is_identified_by/rdf:value ?dc_identifier3 } .
+
+	OPTIONAL { ?subject am:nameTitle/rdf:value ?appellation1 } .
+    OPTIONAL { ?subject am:otherName/rdf:value ?appellation2 } .
+    OPTIONAL { ?subject am:classification/rdf:value ?appellation3 } .
+    OPTIONAL { ?subject am:classification/am:displayValue ?appellation4 } .
+    OPTIONAL { ?subject am:classification/am:commonName ?appellation5 } .
+    OPTIONAL { ?subject am:classification/am:maoriName ?appellation6 } .
+
+	OPTIONAL { ?subject ecrm:P138_has_representation%230 ?primaryRepresentation } .
+
+	OPTIONAL { ?subject am:location/rdf:value ?library_location } .
+
+	OPTIONAL { ?subject am:onDisplayFlag ?display_location } .
+
+	OPTIONAL { ?subject am:record_score ?record_score } .
+
+	OPTIONAL { ?subject am:dateCreated ?date_created } .
+
+	OPTIONAL { ?subject am:isRelatedTo/am:relatedObject ?related_object } .
+
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P7_took_place_at/geo-ont:name ?place_made1 } .	
+
+	OPTIONAL { ?subject ecrm:P53_has_former_or_current_location/ecrm:P89_falls_within/geo-ont:name ?place_found1 } .
+	OPTIONAL { ?subject ecrm:P56_is_found_on/ecrm:P89_falls_within/geo-ont:name ?place_found2 } .
+
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/ecrm:P7_took_place_at/ecrm:P89_falls_within/geo-ont:name ?place_acquired1 } .
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/ecrm:P56_is_found_on/ecrm:P89_falls_within/geo-ont:name ?place_acquired2 } .
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/ecrm:P59_is_located_on_or_within/geo-ont:name ?place_acquired3 } .	
+	OPTIONAL { ?subject ecrm:P24_transferred_title_of/ecrm:P7_took_place_at/ecrm:P89_falls_within/geo-ont:name ?place_acquired4 } .
+	OPTIONAL { ?subject ecrm:P24_transferred_title_of/ecrm:P56_is_found_on/ecrm:P89_falls_within/geo-ont:name ?place_acquired5 } .	
+	OPTIONAL { ?subject ecrm:P24_transferred_title_of/ecrm:P59_is_located_on_or_within/geo-ont:name ?place_acquired6 } .
+
+	OPTIONAL { ?subject am:refersToPlace/geo-ont:name ?place_associated1 } .
+	OPTIONAL { ?subject am:isAboutPlace/geo-ont:name ?place_associated2 } .
+	
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P7_took_place_at/am:placePublished ?place_published1 } .
+
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P7_took_place_at/am:placeCaptured ?place_captured1 } .	
+
+	OPTIONAL { ?subject am:museum_tag ?museum_tag } .
+	OPTIONAL { ?subject am:user_tag ?user_tag } .
+
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P4_has_time_span/rdf:value ?date_made } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P4_has_time_span/ecrm:P82a_begin_of_the_begin ?date_made_begin } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P4_has_time_span/ecrm:P82b_end_of_the_end ?date_made_end } .
+	OPTIONAL { ?subject am:dateCreated ?date_created } .
+
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P4_has_time_span/am:datePublished ?date_published } .
+
+	OPTIONAL { ?subject am:refersToDate/am:associatedDate ?date_associated } .
+	OPTIONAL { ?subject am:refersToDate/am:associatedDateStartDate ?date_associated_begin } .
+	OPTIONAL { ?subject am:refersToDate/am:associatedDateEndDate ?date_associated_end } .
+
+	OPTIONAL { ?subject am:accessionDate ?date_accessioned } .
+	OPTIONAL { ?subject am:accessionDateEarliest ?date_accessioned_begin } .
+	OPTIONAL { ?subject am:accessionDateLatest ?date_accessioned_end } .
+
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/ecrm:P4_has_time_span/am:acquisitionDate ?date_acquisitioned1 } .
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/ecrm:P4_has_time_span/am:acquisitionDateEarliest ?date_acquisitioned_begin1 } .
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/ecrm:P4_has_time_span/am:acquisitionDateLatest ?date_acquisitioned_end1 } .
+	OPTIONAL { ?subject ecrm:P24_transferred_title_of/ecrm:P4_has_time_span/am:acquisitionDate ?date_acquisitioned2 } .
+	OPTIONAL { ?subject ecrm:P24_transferred_title_of/ecrm:P4_has_time_span/am:acquisitionDateEarliest ?date_acquisitioned_begin2 } .
+	OPTIONAL { ?subject ecrm:P24_transferred_title_of/ecrm:P4_has_time_span/am:acquisitionDateLatest ?date_acquisitioned_end2 } .
+
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P10_falls_within/rdfs:label ?time_period1 } .
+	OPTIONAL { ?subject ecrm:P86_falls_within/am:timePeriod ?time_period2 } .
+
+	OPTIONAL { ?subject am:isAboutPerson ?person_about } .
+	OPTIONAL { ?subject am:refersToPerson ?person_referred } .
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P14_carried_out_by/am:primaryMaker ?person_primaryMaker } .	
+	OPTIONAL { ?subject ecrm:P108i_was_produced_by/ecrm:P14_carried_out_by/am:secondaryMaker ?person_secondaryMaker } .
+	OPTIONAL { ?subject am:classificationPerson ?person_classifiedBy } .
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/ecrm:P14_carried_out_by ?person_collectedBy} .
+	
+	OPTIONAL { ?subject ecrm:P2_has_type/rdf:value ?documentType } .
+	OPTIONAL { ?subject am:sensitive ?sensitive } .
+	OPTIONAL { ?subject am:isChildOf ?childOf } .
+	OPTIONAL { ?subject am:subjectCategory ?subjectCategory } .
+	OPTIONAL { ?subject am:geoSubject/rdf:value ?geoSubject } .
+	OPTIONAL { ?subject tsp:kindOfSpecimen ?kindOfSpecimen } .
+	
+	OPTIONAL { ?subject ecrm:P24i_changed_ownership_through/am:localityDescription ?localityDescription1 } .
+	OPTIONAL { ?subject ecrm:P24_transferred_title_of/am:localityDescription ?localityDescription2 } .
+	
+	OPTIONAL { ?subject tn:sex ?gender } .
+	OPTIONAL { ?subject am:notes ?notes } .
+	OPTIONAL { ?subject am:content ?content } .
+	OPTIONAL { ?subject am:keyword ?keyword } .
+	OPTIONAL { ?subject am:unit ?unit } .
+	OPTIONAL { ?subject ecrm:P46i_forms_part_of/rdf:value ?collection } .
+	OPTIONAL { ?subject ecrm:E72_has_language/rdfs:label ?language } .
+	OPTIONAL { ?subject am:statementOfResponsibility ?responsibility } .
+}
