@@ -1,0 +1,103 @@
+PREFIX db: <http://dbpedia.org/ontology/>
+PREFIX ecrm:<http://erlangen-crm.org/current/> 
+PREFIX am:<http://collections.aucklandmuseum.com/ontology/core/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+
+
+SELECT * where
+ {
+ 
+  # Person Basic data
+  optional {?person am:givenName/foaf:familyName ?familyname.}
+  optional {?person am:givenName/foaf:givenName ?firstname.}
+  optional {?person am:war/rdf:value "World War II, 1939-1945".
+  optional {?person am:serviceNumber/rdf:value ?serviceNumber.}
+  optional {?person am:ethnicity ?ethnicity.}
+  optional {?person am:ethnicityNotes ?ethnicityNotes.}
+  optional {?person am:force ?force.}
+  optional {?person am:hapu/rdf:value ?hapu.}
+  optional {?person am:ingoa  ?ingoa. }#gives duplicates
+  optional {?person am:iwi/rdf:value ?iwi.}
+  optional {?person am:religion ?religion.}
+  optional {?person am:rohe ?rohe.}
+  optional {?person am:waka ?waka.}
+    
+  #Birth
+  optional {?person am:birth/am:placeOfBirth/am:displayValue ?placeOfBirth.}
+  optional {?person am:birth/am:dateOfBirth ?dateOfBirth.}
+  optional {?person am:birth/am:dateOfBirthSource ?dateOfBirthSource}
+  optional {?person am:birthNotes ?birthNotes.}
+  
+  #Relationship Status
+  optional {?person am:personalRelationship/am:relationshipDate ?relationshipDate.}
+  optional {?person am:personalRelationship/am:relationshipStatus ?relationshipStatus.}
+  
+  #Before Enlistment
+  optional {?person am:beforeEnlistment/am:addressBeforeEnlistment ?addressBeforeEnlistment.}
+  optional {?person am:beforeEnlistment/am:dateForAddressBeforeEnlistment ?dateForAddressBeforeEnlistment.}
+  optional {?person am:beforeEnlistment/am:placeBeforeEnlistment/am:displayValue ?placeBeforeEnlistment.}
+    
+  #Enlistment 
+  optional {?person am:enlistment/am:ageAtEnlistment ?ageAtEnlistment.}
+  optional {?person am:enlistment/am:conflict ?enlistmentConflict.}
+  optional {?person am:enlistment/am:dateOfEnlistment ?dateOfEnlistment.}
+  optional {?person am:enlistment/am:jobAtEnlistment ?jobAtEnlistment.}
+  optional {?person am:enlistment/am:militaryDistrict ?militaryDistrict.}
+  optional {?person am:enlistment/am:militaryUnitOnEnlistment ?militaryUnitOnEnlistment.}
+
+  #Embarkation
+  optional {?person am:embarkation/am:conflict ?conflict.}
+  optional {?person am:embarkation/am:embarkationBody ?embarkationBody.}
+  optional {?person am:embarkation/am:embarkationDate ?embarkationDate.}
+  optional {?person am:embarkation/am:embarkationEvent ?embarkationEvent.}
+  optional {?person am:embarkation/am:embarkationVessel ?embarkationVessel.}
+  optional {?person am:embarkation/am:placeBeforeEmbarkation ?placeBeforeEmbarkation.}
+  optional {?person am:embarkation/am:rankOnEmbarkation ?rankOnEmbarkation.}
+  optional {?person am:embarkation/am:ageAtEmbarkation ?ageAtEmbarkation.}
+  optional {?person am:nextOfKinAtEmbarkation/am:conflict ?conflict.}
+  optional {?person am:nextOfKinAtEmbarkation/am:nextOfKin ?nextOfKin.}
+  optional {?person am:nextOfKinAtEmbarkation/am:nextOfKinLocation ?nextOfKinLocation.}
+  
+  #Medical Info
+  optional {?person am:medicalInformation/am:medical ?medical.}
+  optional {?person am:medicalInformation/am:medicalDate ?medicalDate.}
+  optional {?person am:medicalInformation/am:notes ?notes.}
+  
+  #Discharge
+  optional {?person am:discharge/am:dischargeDate ?dischargeDate.}
+  optional {?person am:discharge/am:rankLastHeld ?rankLastHeld.}
+  optional {?person am:discharge/am:unitLast ?unitLast.}
+  optional {?person am:discharge/am:conflict ?conflict.}
+  optional {?person am:discharge/am:causeOfDischarge ?causeOfDischarge.}
+  
+  #Post War Occupation
+  optional {?person am:postWarOccupation/am:dateOfEmployment ?dateOfEmployment.}
+  optional {?person am:postWarOccupation/am:occupation ?occupation.}
+
+  #Capture
+  optional {?person am:capture/am:captureDuration ?captureDuration.}
+  optional {?person am:capture/am:captureDuration_earliest ?captureDuration_earliest.}
+  optional {?person am:capture/am:captureDuration_latest ?captureDuration_latest.}
+  optional {?person am:capture/am:captureEvent ?captureEvent.}
+  optional {?person am:capture/am:conflict ?CaptureConflict.}
+  optional {?person am:powDaysInterned ?powDaysInterned.}
+  optional {?person am:capture/am:capturePlace ?capturePlace.}
+  optional {?person am:capture/am:captureNotes ?captureNotes.}
+    
+  #Death
+  optional {?person am:death/am:ageAtDeath ?ageAtDeath.}
+  optional {?person am:death/am:dateOfDeath ?dateOfDeath.}
+  optional {?person am:death/am:placeOfDeath ?placeOfDeath.}
+  optional {?person am:death/am:rankLastHeld ?rankLastHeld.}
+  optional {?person am:death/am:unitLast ?unitLast.}
+  optional {?person am:militaryperson/am:obituary ?obituary.}
+  optional {?person am:memorialNotes ?memorialNotes.}
+  
+  #cemetery
+  optional {?person am:cemetery/am:graveReference ?graveReference.}
+  optional {?person am:cemetery/am:restingPlace ?restingPlace. }
+  optional {?person am:memorialNotes ?memorialNotes.}
+  optional {?person am:memorialReference ?memorialReference.}
+  
+}
