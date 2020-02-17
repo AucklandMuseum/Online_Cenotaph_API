@@ -11,7 +11,7 @@ SELECT * where
   # Person Basic data
   optional {?person am:givenName/foaf:familyName ?familyname.}
   optional {?person am:givenName/foaf:givenName ?firstname.}
-  optional {?person am:war/rdf:value "World War II, 1939-1945".
+  optional {?person am:war/rdf:value "World War II, 1939-1945".}
   optional {?person am:serviceNumber/rdf:value ?serviceNumber.}
   optional {?person am:ethnicity ?ethnicity.}
   optional {?person am:ethnicityNotes ?ethnicityNotes.}
