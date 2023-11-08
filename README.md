@@ -1,4 +1,6 @@
-Auckland Museum API.
+Auckland Museum API (Online Cenotaph Only).
+PLEASE NOTE: THIS CODE IS DEPRECATED. This guide is only applicable to Online Cenotaph data, and the remaining data will be migrated in the future
+For all Collections Online data help, please refer to updated API instructions [here](https://github.com/AucklandMuseum/_API)
 ================
 http://api.aucklandmuseum.com/
 
